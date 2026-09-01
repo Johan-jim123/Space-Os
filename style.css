@@ -1,0 +1,59 @@
+:root {
+    --neon-color: #00f3ff; /* Define variables at the very top */
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("image.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+img {
+    filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+h1 {
+    font-family: 'Audiowide', sans-serif;
+    color: #fff; /* White core makes the neon pop */
+    
+    /* Neon Cyan Glow Effect */
+    text-shadow: 
+        0 0 5px var(--neon-color),
+        0 0 10px var(--neon-color),
+        0 0 20px var(--neon-color),
+        0 0 40px var(--neon-color),
+        0 0 80px var(--neon-color);
+
+        margin-bottom: 5px;
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #A78BFA;
+}
+
+p {
+    font-family: 'Space Mono', monospace;
+    color: #A5F3FC;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    margin-top: 0px;
+}
