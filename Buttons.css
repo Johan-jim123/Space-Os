@@ -1,0 +1,50 @@
+/* Open Launcher Button - Original Palette */
+.nasa-btn-open {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: rgba(10, 15, 26, 0.9);
+  color: #ffffff;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid #105bd8;
+  border-left: 3px solid #00e1ff;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.nasa-btn-open:hover {
+  border-color: #00e1ff;
+  box-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}
+
+/* Window Close / Abort Button - Original Palette */
+.nasa-btn-close {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: rgba(255, 59, 48, 0.12);
+  color: #ff3b30;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 59, 48, 0.5);
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.nasa-btn-close:hover {
+  background: rgba(255, 59, 48, 0.4);
+  color: #ffffff;
+}
