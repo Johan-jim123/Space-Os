@@ -1,21 +1,23 @@
 :root {
-    --neon-color: #00f3ff; /* Define variables at the very top */
+    --neon-color: #00f3ff;
 }
 
+/* Universal Body with Background Image */
+/* Universal Body with Background Image */
+/* Universal Body for Desktop Shell */
 body {
     margin: 0;
     min-height: 100vh;
-    background-image: url("image.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    background-color: #04070d; /* Deep Vacuum OS background */
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
 }
+
+body, button, input, textarea {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Original Image Styling & Floating Animation */
 img {
     filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
     animation: float 3s ease-in-out infinite;
@@ -30,19 +32,17 @@ img {
     }
 }
 
+/* Typography & Neon Glow Effects */
 h1 {
     font-family: 'Audiowide', sans-serif;
-    color: #fff; /* White core makes the neon pop */
-    
-    /* Neon Cyan Glow Effect */
+    color: #fff;
     text-shadow: 
         0 0 5px var(--neon-color),
         0 0 10px var(--neon-color),
         0 0 20px var(--neon-color),
         0 0 40px var(--neon-color),
         0 0 80px var(--neon-color);
-
-        margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 h2 {
@@ -56,4 +56,119 @@ p {
     font-size: 1.25rem;
     letter-spacing: 2px;
     margin-top: 0px;
+}
+
+/* NASA Telemetry Buttons */
+.nasa-btn-open {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(8, 12, 20, 0.95);
+    color: #ffffff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid rgba(0, 225, 255, 0.4);
+    border-left: 3px solid #00e1ff;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 6px rgba(0, 225, 255, 0.3);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.nasa-btn-open:hover {
+    border-color: #00e1ff;
+    background: rgba(12, 20, 35, 0.98);
+    box-shadow: 0 0 12px rgba(0, 225, 255, 0.6);
+}
+
+.nasa-btn-close {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    background: rgba(255, 59, 48, 0.15);
+    color: #ff3b30;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 59, 48, 0.6);
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.nasa-btn-close:hover {
+    background: rgba(255, 59, 48, 0.85);
+    color: #ffffff;
+    border-color: #ff3b30;
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+}
+
+/* Base Desktop Icon Container */
+
+/* Desktop Launcher Icon Titles */
+.app-title {
+    margin-top: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: #00e1ff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    user-select: none;
+    text-shadow: 
+        0 0 4px #000000, 
+        0 0 8px #000000, 
+        0 0 6px rgba(0, 225, 255, 0.7);
+    transition: all 0.2s ease;
+}
+
+.app-title:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 225, 255, 1);
+}
+
+/* Base Desktop Icon Container */
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    padding: 10px 6px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Float entire container (icon + title) together by default */
+.desktop-icon:not(.selected) {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Prevent inner image from running its own separate animation */
+.desktop-icon img {
+    animation: none !important;
+    margin-bottom: 4px;
+}
+
+/* Selected Highlight Box - Freezes animation and locks icon + title in place */
+.selected {
+    animation: none !important;
+    transform: translateY(0px);
+    background: rgba(0, 225, 255, 0.15) !important;
+    border: 1px solid #00e1ff !important;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 225, 255, 0.5);
 }

@@ -1,1 +1,4 @@
-{"wakatime.apiUrl": "https://hackatime.hackclub.com/api/hackatime/v1"}
+{
+    "wakatime.apiUrl": "https://hackatime.hackclub.com/api/hackatime/v1",
+    "liveServer.settings.port": 5503
+}
