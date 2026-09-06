@@ -1,8 +1,6 @@
-// Variable to track currently selected desktop icon & z-index layer
 var selectedIcon = undefined;
 var biggestIndex = 10;
 
-// Desktop Elements
 var welcomeScreen = document.querySelector("#welcome");
 var welcomeScreenOpen = document.querySelector("#welcomeopen");
 var welcomeScreenClose = document.querySelector("#welcomeclose");
@@ -12,9 +10,6 @@ var notesScreenClose = document.querySelector("#notesClose");
 
 var topBar = document.querySelector("#top");
 
-// ==========================================
-// 1. Live Telemetry Clock (UTC Flight Style)
-// ==========================================
 function updateClock() {
   let timmie = new Date().toLocaleTimeString();
   let timeText = document.querySelector("#timeElement");
@@ -53,15 +48,11 @@ if (!document.querySelector("#telemetry-clock-style")) {
 updateClock();
 setInterval(updateClock, 1000);
 
-// ==========================================
-// 2. Window Layering & Depth Handling
-// ==========================================
 function handleWindowTap(windowElement) {
   if (!windowElement) return;
-  biggestIndex++;  // Increment layer index
+  biggestIndex++;
   windowElement.style.zIndex = biggestIndex;
   
-  // Protect Top Bar
   if (topBar) {
     topBar.style.zIndex = biggestIndex + 1;
   }
@@ -75,9 +66,6 @@ function addWindowTapHandling(windowElement) {
   });
 }
 
-// ==========================================
-// 3. Window Dragging Logic
-// ==========================================
 function makeDraggable(element) {
   if (!element) return;
 
@@ -93,10 +81,8 @@ function makeDraggable(element) {
   function startDragging(e) {
     e = e || window.event;
     
-    // Bring window to top on drag start
     handleWindowTap(element);
 
-    // Clear any accidental text selection
     if (window.getSelection) {
       window.getSelection().removeAllRanges();
     }
@@ -143,9 +129,6 @@ function makeDraggable(element) {
   }
 }
 
-// ==========================================
-// 4. Helper Functions for Window Control
-// ==========================================
 function openWindow(element) {
   if (element) {
     element.style.display = "block";
@@ -159,9 +142,14 @@ function closeWindow(element) {
   }
 }
 
-// ==========================================
-// 5. Icon Selection & Launcher Logic
-// ==========================================
+function initializeWindow(elementId) {
+  var windowElement = document.getElementById(elementId);
+  if (!windowElement) return;
+
+  makeDraggable(windowElement);
+  addWindowTapHandling(windowElement);
+}
+
 function selectIcon(element) {
   element.classList.add("selected");
   selectedIcon = element;
@@ -185,14 +173,12 @@ function handleIconTap(e, element) {
     }
     selectIcon(element);
 
-    // Launch window if Space Notes icon is tapped
     if (element.id === "notesOpen") {
       openWindow(notesScreen);
     }
   }
 }
 
-// Deselect icon when clicking on empty desktop space
 document.body.addEventListener("mousedown", function(e) {
   if (e.target === document.body || e.target.id === "desktopApps") {
     if (selectedIcon !== undefined) {
@@ -201,9 +187,6 @@ document.body.addEventListener("mousedown", function(e) {
   }
 });
 
-// ==========================================
-// 6. Event Listeners & Initialization
-// ==========================================
 if (welcomeScreenOpen) {
   welcomeScreenOpen.addEventListener("click", function(e) {
     e.stopPropagation();
@@ -225,14 +208,93 @@ if (notesScreenClose) {
   });
 }
 
-// Initialize drag and tap layering once DOM is loaded
 window.addEventListener("DOMContentLoaded", function() {
-  var welcomeEl = document.getElementById("welcome");
-  var notesEl = document.getElementById("spaceNotesApp");
+  initializeWindow("welcome");
+  initializeWindow("spaceNotesApp");
+});
 
-  makeDraggable(welcomeEl);
-  makeDraggable(notesEl);
+// 1. Data Store for Demo Logs
+document.addEventListener('DOMContentLoaded', () => {
+    const logData = {
+        "LOG_004": 
+            "[ TIME: 000:00:00:01 MET ]\n" +
+            "[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]\n\n" +
+            "// FLIGHT LOG 004: STANDARD OPERATING PROCEDURES & PROTOCOLS\n" +
+            "===========================================================\n\n" +
+            "RULE #1: DO NOT DIE.\n" +
+            "  ├─ Breathing vacuum is highly unrecommended by flight medicine.\n" +
+            "  └─ Keep suit pressure above 14.7 PSI at all times.\n\n" +
+            "RULE #2: DO NOT PRESS THE RED BUTTON.\n" +
+            "  ├─ Unless explicitly told to press the red button.\n" +
+            "  └─ If pressed, refer immediately back to Rule #1.\n\n" +
+            "RULE #3: HYDRATION & REFUELING PROTOCOLS.\n" +
+            "  ├─ Coffee consumption is vital for orbital navigation.\n" +
+            "  └─ Zero-G spill cleanup is the responsibility of the perpetrator.\n\n" +
+            "RULE #4: ANOMALY DISCOVERY.\n" +
+            "  ├─ If aliens are spotted, take a photo BEFORE screaming.\n" +
+            "  └─ Do not attempt to feed space fauna.\n\n" +
+            "> SYSTEM PROTOCOLS LOADED // STAY SAFE OUT THERE, ASTRONAUT",
 
-  addWindowTapHandling(welcomeEl);
-  addWindowTapHandling(notesEl);
+        "LOG_003": 
+            "[ TIME: 000:00:13:27 MET ]\n" +
+            "[ NETWORK: VANGUARD_STATION // REV_01 ]\n\n" +
+            "// FLIGHT LOG 003: ORBITAL COAST CONFIGURATION\n" +
+            "00:12:12 - CDR (ARMSTRONG): Staging confirmed. Booster is safe.\n" +
+            "00:13:27 - CAPCOM (MCC): Booster configured for orbital coast. Both spacecraft systems nominal.\n" +
+            "00:18:30 - CAPCOM (MCC): Delta azimuth correction is +0.22. P52 platform alignment recommended.\n" +
+            "00:39:10 - CAPCOM (MCC): Canary radar confirms stable circular orbit at 103.0 x 103.0 nautical miles.\n" +
+            "00:39:31 - CDR (ARMSTRONG): Visual confirmed on Earth terminator line. Entering orbital night.\n\n" +
+            "> INSERTION CHECKLIST COMPLETE // NO ABNORMALITIES DETECTED",
+
+        "LOG_002": 
+            "[ TIME: 055:54:00 MET ]\n" +
+            "[ NETWORK: GOLDSTONE_TRACKING // CSM-109 ]\n\n" +
+            "// FLIGHT LOG 002: CRYO TANK AGITATION TELEMETRY\n" +
+            "055:53:20 - CAPCOM (KERWIN): Stand by for Cryo Fan switch toggles on O2 tanks 1 and 2.\n" +
+            "055:54:10 - LMP (HAISE): Fan switches cycling now...\n" +
+            "055:55:20 - CMP (SWIGERT): Okay, Houston, we've had a problem here.\n" +
+            "055:55:35 - CAPCOM (KERWIN): This is Houston. Say again, please.\n" +
+            "055:55:42 - CDR (LOVELL): Houston, we've had a Main B Bus Undervolt. O2 Tank 2 pressure reading ZERO.\n" +
+            "055:57:05 - CAPCOM (KERWIN): We're looking at a telemetry glitch or sensor fail. Stand by for RCS dump...\n\n" +
+            "> ALERT: BUS_B UNDERVOLT // SWITCHING TO LM AQUARIUS POWER PROTOCOL",
+
+        "LOG_001": 
+            "[ TIME: 078:31:46 MET ]\n" +
+            "[ NETWORK: MADRID_STATION // LUNAR_REAR_PASS ]\n\n" +
+            "// FLIGHT LOG 001: LUNAR ORBIT INSERTION (LOI-1)\n" +
+            "078:31:46 - SYSTEMS: SPS Engine Ignition confirmed. Thrust vector: 20,000 lbs.\n" +
+            "078:35:40 - CDR (SCOTT): Burn time 394 seconds. Guidance lock solid on P40 protocol.\n" +
+            "078:38:20 - CMP (WORDEN): Shutdown on time. Chamber pressure dropping to zero.\n" +
+            "078:40:12 - CAPCOM (GORDON): Acquisition of signal (AOS) confirmed via Madrid station.\n" +
+            "078:41:00 - SYSTEMS: Elliptical lunar orbit established at 170.0 x 57.7 nautical miles.\n\n" +
+            "> LOI BURNS COMPLETE // S-IVB IMPACT TELEMETRY DOCKED"
+    };
+
+    const textarea = document.querySelector('.log-input');
+    const logItems = document.querySelectorAll('.log-item');
+    const newLogBtn = document.querySelector('.new-log-btn');
+
+    logItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            logItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            const logKeys = ["LOG_004", "LOG_003", "LOG_002", "LOG_001"];
+            const selectedKey = logKeys[index];
+
+            if (textarea && logData[selectedKey]) {
+                textarea.value = logData[selectedKey];
+            }
+        });
+    });
+
+    if (newLogBtn) {
+        newLogBtn.addEventListener('click', () => {
+            logItems.forEach(i => i.classList.remove('active'));
+            const currentDate = new Date().toISOString().slice(0, 10);
+            const currentTime = new Date().toUTCString().slice(17, 25);
+            textarea.value = "[ TIMESTAMP: " + currentDate + " - " + currentTime + " UTC ]\n[ LOCATION: UNKNOWN ]\n\n// NEW MISSION LOG\n> INPUT_";
+            textarea.focus();
+        });
+    }
 });

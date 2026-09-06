@@ -2,25 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>notes </title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
-
+    <title>Space Notes Telemetry</title>
+    <!-- CSS link stays inside head -->
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            background-color: black; /* Sets the entire page background to black */
-            color: white;            /* Optional: Changes text color to white so you can read it */
-        }
-    </style>
 </head>
-
 <body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <button class="new-log-btn">+ NEW_LOG</button>
+            
+            <div class="sidebar-header">
+                <span>LOG INDEX</span>
+                <span class="log-count">04</span>
+            </div>
 
-    <h1>Space-notes</h1>
-    <p>Rule 1 : Don't die</p>
+            <div class="log-list">
+                <div class="log-item active">
+                    <div class="log-title">LOG_004 // SPACE_RULES</div>
+                    <div class="log-date">2026.09.06</div>
+                </div>
 
+                <div class="log-item">
+                    <div class="log-title">LOG_003 // ORBIT_ENTRY</div>
+                    <div class="log-date">2026.09.05</div>
+                </div>
+
+                <div class="log-item">
+                    <div class="log-title">LOG_002 // THRUSTER_CAL</div>
+                    <div class="log-date">2026.09.04</div>
+                </div>
+
+                <div class="log-item">
+                    <div class="log-title">LOG_001 // SYS_INITIALIZE</div>
+                    <div class="log-date">2026.09.03</div>
+                </div>
+            </div>
+        </div> <!-- End Sidebar -->
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Telemetry Header -->
+            <div class="telemetry-header">
+                <h2>[ SYS // MISSION LOGS ]</h2>
+                <p>STATUS: <span class="status-ok">NOMINAL</span> // UTC: 17:20:00</p>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="editor-container">
+                <div class="terminal-prompt">&gt; INPUT_</div>
+                <textarea class="log-input" placeholder="// Enter telemetry log data here..." spellcheck="false">[ TIME: 000:00:00:01 MET ]
+[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]
+
+// FLIGHT LOG 004: STANDARD OPERATING PROCEDURES & PROTOCOLS
+===========================================================
+
+RULE #1: DO NOT DIE.
+  ├─ Breathing vacuum is highly unrecommended by flight medicine.
+  └─ Keep suit pressure above 14.7 PSI at all times.
+
+RULE #2: DO NOT PRESS THE RED BUTTON.
+  ├─ Unless explicitly told to press the red button.
+  └─ If pressed, refer immediately back to Rule #1.
+
+RULE #3: HYDRATION & REFUELING PROTOCOLS.
+  ├─ Coffee consumption is vital for orbital navigation.
+  └─ Zero-G spill cleanup is the responsibility of the perpetrator.
+
+RULE #4: ANOMALY DISCOVERY.
+  ├─ If aliens are spotted, take a photo BEFORE screaming.
+  └─ Do not attempt to feed space fauna.
+
+> SYSTEM PROTOCOLS LOADED // STAY SAFE OUT THERE, ASTRONAUT</textarea>
+            </div>
+        </div> <!-- End Content Area -->
+    </div> <!-- End App Container -->
+
+    <!-- Link JS script right before </body> -->
+    <script src="script.js"></script>
 </body>
 </html>
