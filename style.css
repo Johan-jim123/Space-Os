@@ -362,3 +362,57 @@ p {
 .log-input::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 225, 255, 0.5);
 }
+/* Hide default system hardware cursor */
+* {
+  cursor: none !important;
+}
+
+/* Custom Rocket Cursor */
+.custom-cursor {
+  width: 24px;
+  height: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  filter: drop-shadow(0 0 6px #00f0ff);
+  transition: transform 0.05s ease-out;
+}
+
+/* Thruster Click Pulse */
+.custom-cursor.clicking {
+  filter: drop-shadow(0 0 12px #ff4d4d);
+}
+
+/* Thruster Particle Styling */
+.thruster-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: #00f0ff;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px #00f0ff, 0 0 12px #ff4d4d;
+  z-index: 99998;
+  animation: thrusterFade 0.4s linear forwards;
+}
+
+/* Particle shrinking & color shift animation */
+@keyframes thrusterFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    background-color: #00f0ff;
+  }
+  50% {
+    background-color: #ffaa00;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    background-color: #ff4d4d;
+  }
+}

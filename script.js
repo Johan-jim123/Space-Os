@@ -8,6 +8,10 @@ var welcomeScreenClose = document.querySelector("#welcomeclose");
 var notesScreen = document.querySelector("#spaceNotesApp");
 var notesScreenClose = document.querySelector("#notesClose");
 
+// Star Chart DOM elements
+var starChartScreen = document.querySelector("#starchart-window");
+var starChartClose = document.querySelector("#starchartClose");
+
 var topBar = document.querySelector("#top");
 
 function updateClock() {
@@ -175,6 +179,8 @@ function handleIconTap(e, element) {
 
     if (element.id === "notesOpen") {
       openWindow(notesScreen);
+    } else if (element.id === "starchartOpen") {
+      openWindow(starChartScreen);
     }
   }
 }
@@ -208,93 +214,171 @@ if (notesScreenClose) {
   });
 }
 
+if (starChartClose) {
+  starChartClose.addEventListener("click", function(e) {
+    e.stopPropagation();
+    closeWindow(starChartScreen);
+  });
+}
+
 window.addEventListener("DOMContentLoaded", function() {
+  // Initialize all draggable windows
   initializeWindow("welcome");
   initializeWindow("spaceNotesApp");
-});
+  initializeWindow("starchart-window");
 
-// 1. Data Store for Demo Logs
-document.addEventListener('DOMContentLoaded', () => {
-    const logData = {
-        "LOG_004": 
-            "[ TIME: 000:00:00:01 MET ]\n" +
-            "[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]\n\n" +
-            "// FLIGHT LOG 004: STANDARD OPERATING PROCEDURES & PROTOCOLS\n" +
-            "===========================================================\n\n" +
-            "RULE #1: DO NOT DIE.\n" +
-            "  ├─ Breathing vacuum is highly unrecommended by flight medicine.\n" +
-            "  └─ Keep suit pressure above 14.7 PSI at all times.\n\n" +
-            "RULE #2: DO NOT PRESS THE RED BUTTON.\n" +
-            "  ├─ Unless explicitly told to press the red button.\n" +
-            "  └─ If pressed, refer immediately back to Rule #1.\n\n" +
-            "RULE #3: HYDRATION & REFUELING PROTOCOLS.\n" +
-            "  ├─ Coffee consumption is vital for orbital navigation.\n" +
-            "  └─ Zero-G spill cleanup is the responsibility of the perpetrator.\n\n" +
-            "RULE #4: ANOMALY DISCOVERY.\n" +
-            "  ├─ If aliens are spotted, take a photo BEFORE screaming.\n" +
-            "  └─ Do not attempt to feed space fauna.\n\n" +
-            "> SYSTEM PROTOCOLS LOADED // STAY SAFE OUT THERE, ASTRONAUT",
+  // Data Store for Demo Logs
+  const logData = {
+    "LOG_004": 
+        "[ TIME: 000:00:00:01 MET ]\n" +
+        "[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]\n\n" +
+        "// FLIGHT LOG 004: STANDARD OPERATING PROCEDURES & PROTOCOLS\n" +
+        "===========================================================\n\n" +
+        "RULE #1: DO NOT DIE.\n" +
+        "  ├─ Breathing vacuum is highly unrecommended by flight medicine.\n" +
+        "  └─ Keep suit pressure above 14.7 PSI at all times.\n\n" +
+        "RULE #2: DO NOT PRESS THE RED BUTTON.\n" +
+        "  ├─ Unless explicitly told to press the red button.\n" +
+        "  └─ If pressed, refer immediately back to Rule #1.\n\n" +
+        "RULE #3: HYDRATION & REFUELING PROTOCOLS.\n" +
+        "  ├─ Coffee consumption is vital for orbital navigation.\n" +
+        "  └─ Zero-G spill cleanup is the responsibility of the perpetrator.\n\n" +
+        "RULE #4: ANOMALY DISCOVERY.\n" +
+        "  ├─ If aliens are spotted, take a photo BEFORE screaming.\n" +
+        "  └─ Do not attempt to feed space fauna.\n\n" +
+        "> SYSTEM PROTOCOLS LOADED // STAY SAFE OUT THERE, ASTRONAUT",
 
-        "LOG_003": 
-            "[ TIME: 000:00:13:27 MET ]\n" +
-            "[ NETWORK: VANGUARD_STATION // REV_01 ]\n\n" +
-            "// FLIGHT LOG 003: ORBITAL COAST CONFIGURATION\n" +
-            "00:12:12 - CDR (ARMSTRONG): Staging confirmed. Booster is safe.\n" +
-            "00:13:27 - CAPCOM (MCC): Booster configured for orbital coast. Both spacecraft systems nominal.\n" +
-            "00:18:30 - CAPCOM (MCC): Delta azimuth correction is +0.22. P52 platform alignment recommended.\n" +
-            "00:39:10 - CAPCOM (MCC): Canary radar confirms stable circular orbit at 103.0 x 103.0 nautical miles.\n" +
-            "00:39:31 - CDR (ARMSTRONG): Visual confirmed on Earth terminator line. Entering orbital night.\n\n" +
-            "> INSERTION CHECKLIST COMPLETE // NO ABNORMALITIES DETECTED",
+    "LOG_003": 
+        "[ TIME: 000:00:13:27 MET ]\n" +
+        "[ NETWORK: VANGUARD_STATION // REV_01 ]\n\n" +
+        "// FLIGHT LOG 003: ORBITAL COAST CONFIGURATION\n" +
+        "00:12:12 - CDR (ARMSTRONG): Staging confirmed. Booster is safe.\n" +
+        "00:13:27 - CAPCOM (MCC): Booster configured for orbital coast. Both spacecraft systems nominal.\n" +
+        "00:18:30 - CAPCOM (MCC): Delta azimuth correction is +0.22. P52 platform alignment recommended.\n" +
+        "00:39:10 - CAPCOM (MCC): Canary radar confirms stable circular orbit at 103.0 x 103.0 nautical miles.\n" +
+        "00:39:31 - CDR (ARMSTRONG): Visual confirmed on Earth terminator line. Entering orbital night.\n\n" +
+        "> INSERTION CHECKLIST COMPLETE // NO ABNORMALITIES DETECTED",
 
-        "LOG_002": 
-            "[ TIME: 055:54:00 MET ]\n" +
-            "[ NETWORK: GOLDSTONE_TRACKING // CSM-109 ]\n\n" +
-            "// FLIGHT LOG 002: CRYO TANK AGITATION TELEMETRY\n" +
-            "055:53:20 - CAPCOM (KERWIN): Stand by for Cryo Fan switch toggles on O2 tanks 1 and 2.\n" +
-            "055:54:10 - LMP (HAISE): Fan switches cycling now...\n" +
-            "055:55:20 - CMP (SWIGERT): Okay, Houston, we've had a problem here.\n" +
-            "055:55:35 - CAPCOM (KERWIN): This is Houston. Say again, please.\n" +
-            "055:55:42 - CDR (LOVELL): Houston, we've had a Main B Bus Undervolt. O2 Tank 2 pressure reading ZERO.\n" +
-            "055:57:05 - CAPCOM (KERWIN): We're looking at a telemetry glitch or sensor fail. Stand by for RCS dump...\n\n" +
-            "> ALERT: BUS_B UNDERVOLT // SWITCHING TO LM AQUARIUS POWER PROTOCOL",
+    "LOG_002": 
+        "[ TIME: 055:54:00 MET ]\n" +
+        "[ NETWORK: GOLDSTONE_TRACKING // CSM-109 ]\n\n" +
+        "// FLIGHT LOG 002: CRYO TANK AGITATION TELEMETRY\n" +
+        "055:53:20 - CAPCOM (KERWIN): Stand by for Cryo Fan switch toggles on O2 tanks 1 and 2.\n" +
+        "055:54:10 - LMP (HAISE): Fan switches cycling now...\n" +
+        "055:55:20 - CMP (SWIGERT): Okay, Houston, we've had a problem here.\n" +
+        "055:55:35 - CAPCOM (KERWIN): This is Houston. Say again, please.\n" +
+        "055:55:42 - CDR (LOVELL): Houston, we've had a Main B Bus Undervolt. O2 Tank 2 pressure reading ZERO.\n" +
+        "055:57:05 - CAPCOM (KERWIN): We're looking at a telemetry glitch or sensor fail. Stand by for RCS dump...\n\n" +
+        "> ALERT: BUS_B UNDERVOLT // SWITCHING TO LM AQUARIUS POWER PROTOCOL",
 
-        "LOG_001": 
-            "[ TIME: 078:31:46 MET ]\n" +
-            "[ NETWORK: MADRID_STATION // LUNAR_REAR_PASS ]\n\n" +
-            "// FLIGHT LOG 001: LUNAR ORBIT INSERTION (LOI-1)\n" +
-            "078:31:46 - SYSTEMS: SPS Engine Ignition confirmed. Thrust vector: 20,000 lbs.\n" +
-            "078:35:40 - CDR (SCOTT): Burn time 394 seconds. Guidance lock solid on P40 protocol.\n" +
-            "078:38:20 - CMP (WORDEN): Shutdown on time. Chamber pressure dropping to zero.\n" +
-            "078:40:12 - CAPCOM (GORDON): Acquisition of signal (AOS) confirmed via Madrid station.\n" +
-            "078:41:00 - SYSTEMS: Elliptical lunar orbit established at 170.0 x 57.7 nautical miles.\n\n" +
-            "> LOI BURNS COMPLETE // S-IVB IMPACT TELEMETRY DOCKED"
-    };
+    "LOG_001": 
+        "[ TIME: 078:31:46 MET ]\n" +
+        "[ NETWORK: MADRID_STATION // LUNAR_REAR_PASS ]\n\n" +
+        "// FLIGHT LOG 001: LUNAR ORBIT INSERTION (LOI-1)\n" +
+        "078:31:46 - SYSTEMS: SPS Engine Ignition confirmed. Thrust vector: 20,000 lbs.\n" +
+        "078:35:40 - CDR (SCOTT): Burn time 394 seconds. Guidance lock solid on P40 protocol.\n" +
+        "078:38:20 - CMP (WORDEN): Shutdown on time. Chamber pressure dropping to zero.\n" +
+        "078:40:12 - CAPCOM (GORDON): Acquisition of signal (AOS) confirmed via Madrid station.\n" +
+        "078:41:00 - SYSTEMS: Elliptical lunar orbit established at 170.0 x 57.7 nautical miles.\n\n" +
+        "> LOI BURNS COMPLETE // S-IVB IMPACT TELEMETRY DOCKED"
+  };
 
-    const textarea = document.querySelector('.log-input');
-    const logItems = document.querySelectorAll('.log-item');
-    const newLogBtn = document.querySelector('.new-log-btn');
+  const textarea = document.querySelector('.log-input');
+  const logItems = document.querySelectorAll('.log-item');
+  const newLogBtn = document.querySelector('.new-log-btn');
 
-    logItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            logItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
+  logItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      logItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
 
-            const logKeys = ["LOG_004", "LOG_003", "LOG_002", "LOG_001"];
-            const selectedKey = logKeys[index];
+      const logKeys = ["LOG_004", "LOG_003", "LOG_002", "LOG_001"];
+      const selectedKey = logKeys[index];
 
-            if (textarea && logData[selectedKey]) {
-                textarea.value = logData[selectedKey];
-            }
-        });
+      if (textarea && logData[selectedKey]) {
+        textarea.value = logData[selectedKey];
+      }
     });
+  });
 
-    if (newLogBtn) {
-        newLogBtn.addEventListener('click', () => {
-            logItems.forEach(i => i.classList.remove('active'));
-            const currentDate = new Date().toISOString().slice(0, 10);
-            const currentTime = new Date().toUTCString().slice(17, 25);
-            textarea.value = "[ TIMESTAMP: " + currentDate + " - " + currentTime + " UTC ]\n[ LOCATION: UNKNOWN ]\n\n// NEW MISSION LOG\n> INPUT_";
-            textarea.focus();
-        });
-    }
+  if (newLogBtn) {
+    newLogBtn.addEventListener('click', () => {
+      logItems.forEach(i => i.classList.remove('active'));
+      const currentDate = new Date().toISOString().slice(0, 10);
+      const currentTime = new Date().toUTCString().slice(17, 25);
+      textarea.value = "[ TIMESTAMP: " + currentDate + " - " + currentTime + " UTC ]\n[ LOCATION: UNKNOWN ]\n\n// NEW MISSION LOG\n> INPUT_";
+      textarea.focus();
+    });
+  }
 });
+
+
+// --- CUSTOM ROCKET CURSOR LOGIC ---
+const cursor = document.querySelector('.custom-cursor');
+
+let lastX = 0;
+let lastY = 0;
+
+// Centralized function to calculate rotation and move the rocket
+function updateCursor(currentX, currentY) {
+  const deltaX = currentX - lastX;
+  const deltaY = currentY - lastY;
+  const distanceMoved = Math.hypot(deltaX, deltaY);
+
+  if (distanceMoved > 1) {
+    const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
+    
+    cursor.style.left = `${currentX}px`;
+    cursor.style.top = `${currentY}px`;
+    cursor.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+
+    if (distanceMoved > 4) {
+      createThrusterParticle(currentX, currentY, angle);
+    }
+  } else {
+    cursor.style.left = `${currentX}px`;
+    cursor.style.top = `${currentY}px`;
+  }
+
+  lastX = currentX;
+  lastY = currentY;
+}
+
+// 1. Listen for normal mouse movement on the desktop wallpaper
+document.addEventListener('mousemove', (e) => updateCursor(e.clientX, e.clientY));
+document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+// 2. Listen for "radio messages" from the iframe apps
+window.addEventListener('message', (e) => {
+  const iframes = Array.from(document.querySelectorAll('iframe'));
+  const sourceIframe = iframes.find(iframe => iframe.contentWindow === e.source);
+
+  if (sourceIframe) {
+    if (e.data.type === 'cursorMove') {
+      const rect = sourceIframe.getBoundingClientRect();
+      updateCursor(e.data.x + rect.left, e.data.y + rect.top);
+    }
+    if (e.data.type === 'cursorDown') cursor.classList.add('clicking');
+    if (e.data.type === 'cursorUp') cursor.classList.remove('clicking');
+  }
+});
+
+// 3. Function to generate fading exhaust particles
+function createThrusterParticle(x, y, angleDeg) {
+  const particle = document.createElement('div');
+  particle.className = 'thruster-particle';
+
+  const rad = (angleDeg - 90) * (Math.PI / 180);
+  const offsetX = x - Math.cos(rad) * 12;
+  const offsetY = y - Math.sin(rad) * 12;
+
+  particle.style.left = `${offsetX}px`;
+  particle.style.top = `${offsetY}px`;
+
+  document.body.appendChild(particle);
+
+  setTimeout(() => {
+    particle.remove();
+  }, 400);
+}

@@ -25,7 +25,20 @@
 ">
 
     <img src="austronuat.png" height="200" width="200">
-
+    <script>
+  // Broadcast mouse data to the parent OS window
+  document.addEventListener('mousemove', (e) => {
+    window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
+  });
+  
+  document.addEventListener('mousedown', () => {
+    window.parent.postMessage({ type: 'cursorDown' }, '*');
+  });
+  
+  document.addEventListener('mouseup', () => {
+    window.parent.postMessage({ type: 'cursorUp' }, '*');
+  });
+</script>
     <h1>Space-Os</h1>
     <p>Space-Os is a space related operating system.<br> Based in my love for the outerworld.</p>
 

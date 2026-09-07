@@ -77,7 +77,20 @@ RULE #4: ANOMALY DISCOVERY.
             </div>
         </div> <!-- End Content Area -->
     </div> <!-- End App Container -->
-
+    <script>
+  // Broadcast mouse data to the parent OS window
+  document.addEventListener('mousemove', (e) => {
+    window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
+  });
+  
+  document.addEventListener('mousedown', () => {
+    window.parent.postMessage({ type: 'cursorDown' }, '*');
+  });
+  
+  document.addEventListener('mouseup', () => {
+    window.parent.postMessage({ type: 'cursorUp' }, '*');
+  });
+</script>
     <!-- Link JS script right before </body> -->
     <script src="script.js"></script>
 </body>
