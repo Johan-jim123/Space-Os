@@ -1,133 +1,82 @@
-# Space-OS 🚀
+# Space-OS
 
-A tiny sci-fi Space environment that runs entirely in your browser.
+Space-OS is a browser-based desktop environment with a sci-fi/space theme. I built it using vanilla HTML, CSS, and JavaScript to experiment with creating an operating-system-style interface without using a large framework.
 
-Space-OS is basically what happens when you look at your browser and think, *“Yeah… this needs to feel more like a spaceship.”* 🧑‍🚀
+The project has draggable windows, a UTC clock, a solar-system visualisation, space logs, and a custom rocket cursor.
 
-It’s built with plain HTML, CSS, and JavaScript. No massive frameworks, no 47-step build process, and absolutely no need to summon an ancient JavaScript wizard just to change a button.
+## Features
 
-## 🌌 What is this?
+### Star Chart
 
-Space-OS is a passion project where I’m experimenting with how far you can push basic web technologies to make a browser feel like an actual operating system.
+The Star Chart is an HTML5 Canvas application that displays the Sun and 8 planets along with their orbital paths.
 
-You get draggable windows, a live UTC telemetry clock, space logs, an interactive solar-system map, and a bunch of futuristic UI effects.
+Clicking on a planet opens its telemetry information. The chart also has a radar-style grid to fit the overall interface.
 
-And then there’s the rocket cursor.
+### Rocket Cursor
 
-It actually changes direction based on where your mouse is moving, leaves behind plasma sparks, and keeps working even when you move across embedded apps.
+The normal cursor is replaced with a rocket that follows the mouse.
 
-Because apparently, having a normal cursor wasn't futuristic enough. 🚀
+The rocket uses `Math.atan2()` to calculate the angle between its previous and current mouse positions. This allows it to rotate according to the direction the mouse is moving.
 
-## 🛰️ What’s Built In
+It also generates small particle effects behind the rocket.
 
-### ⭐ The Star Chart — `SYS // ORBITAL_RADAR`
+### Iframe Communication
 
-An interactive solar-system radar built with HTML5 Canvas.
+Some of the Space-OS applications run inside iframes. This normally makes tracking the mouse from the main page difficult because mouse events are handled inside the iframe.
 
-It includes all 8 planets, orbital paths, a radar-style grid, and a telemetry panel that appears when you click on a planet.
+I worked around this using `postMessage()`. The iframe sends the mouse position to the main page, allowing the rocket cursor and its particle trail to continue working when moving across application windows.
 
-Yes, you can click planets.
+### Space Notes
 
-No, unfortunately, clicking Jupiter does not launch a mission to Jupiter.
+Space Notes is a simple mission-log application containing flight-related information and a terminal-style editor.
 
-### 🚀 The Rocket Cursor
+### Welcome Console
 
-The cursor uses `Math.atan2()` to calculate the direction of movement and rotate the rocket accordingly.
+The Welcome Console is the main terminal shown when Space-OS starts. It provides the initial interface for entering the desktop environment.
 
-In simpler terms:
+## Technologies Used
 
-**Mouse moves → math happens → rocket turns.**
+HTML5 is used for the structure of the desktop and applications.
 
-There are also plasma particles trailing behind it, because apparently ordinary mouse movement wasn't dramatic enough.
+CSS3 handles the interface, animations, HUD elements, glass effects, and overall visual design.
 
-### 🪟 Iframe Bridge
+JavaScript handles the window manager, clock, cursor movement, interactions, and application logic.
 
-Iframes normally make mouse tracking annoying because they basically say:
+The Canvas 2D API is used for the Star Chart.
 
-> “Your mouse events? Yeah, those belong to me now.”
+`postMessage()` is used for communication between the main page and iframe applications.
 
-So Space-OS uses `postMessage` to send mouse-position data between the main desktop and embedded apps.
-
-This lets the rocket cursor keep flying smoothly across app windows without losing its particle trail.
-
-### 📝 Space Notes
-
-A mission-log viewer containing historical flight telemetry and a terminal-style text editor.
-
-Perfect for documenting extremely important scientific discoveries like:
-
-`Day 47: Still haven't found aliens.`
-
-### 💻 Welcome Console
-
-The main boot-up terminal that greets new astronauts when Space-OS starts.
-
-Think of it as mission control saying:
-
-**“Welcome aboard. Please don't press random buttons.”**
-
-## 🛠️ Tech Stack
-
-**HTML5** — The structure holding the spaceship together.
-
-**CSS3** — Handles the glassmorphism, HUD effects, animations, colors, and general *“we are definitely in the future”* appearance.
-
-**Vanilla JavaScript** — Powers the window manager, clock, cursor system, interactions, and basically everything that makes the UI actually do stuff.
-
-**Canvas 2D API** — Used for the orbital radar and planetary visualisation.
-
-**Math & Trigonometry** — Because rockets apparently require mathematics even when they're just following a mouse.
-
-**`postMessage`** — Handles communication between the main desktop and iframe-based applications.
-
-## 📁 Project Structure
+## Project Structure
 
 ```text
 space-os/
-├── index.html        # Main desktop shell
-├── style.css         # HUD styling, animations & cursor effects
-├── script.js         # Window dragging, clock & rocket cursor logic
-├── starchart.html    # Orbital radar app
-├── starchart.js      # Planet positions & telemetry interactions
-└── notes.html        # Space mission logs
+├── index.html        # Main desktop and window container
+├── style.css         # Global styling and cursor effects
+├── script.js         # Desktop, window and cursor logic
+├── starchart.html    # Star Chart application
+├── starchart.js      # Planet and telemetry logic
+└── notes.html        # Space Notes application
 ```
 
-Nothing too complicated.
+## Running the Project
 
-Just a few files trying very hard to pretend they're an entire operating system.
-
-## 🚀 Getting Started
-
-Clone the repository and launch it locally:
+Clone the repository:
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-username/space-os.git
-
-# Enter the spaceship
-cd space-os
-
-# Launch the mission
-# Open index.html in your browser
-# or use Live Server if you have it installed
 ```
 
-And that's it.
+Then enter the project folder:
 
-No complicated setup.
+```bash
+cd space-os
+```
 
-No dependency apocalypse.
+The project does not require a build system or external framework. You can open `index.html` directly in a modern browser, or use something like VS Code Live Server during development.
 
-No `node_modules` folder weighing 900 MB because you installed a button.
+## Why I Built It
+For the stardance programme and for my personal interest in space.
 
-Just HTML, CSS, JavaScript, and a suspicious amount of space-themed CSS.
+The project also gave me a chance to work with things I had not used much before, especially Canvas, mouse-event handling, iframe communication, and vector calculations.
 
-## 🌠 Why I Built This
-
-Space-OS started as an experiment to see whether vanilla web technologies could create something that *feels* like a real desktop environment.
-
-It’s still a work in progress, but the goal is simple:
-
-**Make the browser feel less like a browser and more like a spaceship.**
-
-And maybe, eventually, make it good enough that mission control would actually approve it. 🚀
+It is still a work in progress, but the main idea is to keep adding small applications and make Space-OS feel more like a complete desktop environment.
