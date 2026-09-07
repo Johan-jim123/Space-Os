@@ -26,7 +26,6 @@
 
     <img src="austronuat.png" height="200" width="200">
     <script>
-  // Broadcast mouse data to the parent OS window
   document.addEventListener('mousemove', (e) => {
     window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
   });

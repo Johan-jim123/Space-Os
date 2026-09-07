@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>JJ-OS // SOLAR SYSTEM ORBIT PLOTTER</title>
     <style>
-        /* Reset margins and set full screen background */
         body, html {
             margin: 0;
             padding: 0;
@@ -23,7 +22,6 @@
             height: 100vh;
         }
 
-        /* Top SYS Header Bar */
         .sys-bar {
             height: 35px;
             background: #031424;
@@ -52,23 +50,18 @@
 <body>
 
     <div class="dashboard">
-        <!-- Top SYS Header Bar -->
         <div class="sys-bar">
             <span>SYS // ORBITAL_RADAR</span>
         </div>
-
-        <!-- Canvas Container -->
         <div class="canvas-container">
             <canvas id="starCanvas"></canvas>
         </div>
     </div>
     <style>
-  /* Hide the native hardware cursor inside the app */
   * { cursor: none !important; }
 </style>
 
 <script>
-  // Broadcast mouse data to the parent OS window
   document.addEventListener('mousemove', (e) => {
     window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
   });

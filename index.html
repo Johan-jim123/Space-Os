@@ -4,70 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JJ-OS</title>
-  <!-- NASA Telemetry Button Styles -->
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body style="background-image: url('Main.png'); background-size: cover; background-repeat: no-repeat; background-position: center; margin: 0; height: 100vh; width: 100vw; overflow: hidden;">
-
-  <!-- Top Bar Area -->
   <div id="top" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 9999; pointer-events: none;">
-    <!-- System Clock Target -->
     <div id="timeElement" style="position: absolute; top: 10px; right: 20px; pointer-events: auto;"></div>
-
-    <!-- Open Launcher Button -->
     <span id="welcomeopen" class="nasa-btn-open" style="pointer-events: auto;">
       SYS // JJ-OS
     </span>
   </div>
-
-  <!-- Welcome Window Module -->
   <div id="welcome" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 400px; border: 4mm ridge rgba(0, 112, 125, 0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 112, 125, 0.8);">
-    
-    <!-- Window Header -->
     <div id="welcomeheader" style="height: 30px; background: rgba(8, 12, 20, 0.95); backdrop-filter: blur(5px); cursor: move; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #d1d5db; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; letter-spacing: 1px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);">
-      
-      <!-- Module Title -->
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="color: #00e1ff; font-weight: bold;">[FLT-01]</span>
         <span style="text-transform: uppercase; color: #f3f4f6;">JJ-OS // WELCOME_MODULE</span>
       </div>
-
-      <!-- Close Button -->
       <span id="welcomeclose" class="nasa-btn-close">
         [ABORT ✕]
       </span>
-
     </div>
-
-    <!-- Embedded Module Frame -->
     <iframe src="welcome.html" style="width: 100%; height: calc(100% - 30px); border: none; display: block;"></iframe>
-
   </div>
-
-  <!-- Desktop Apps Area -->
   <div id="desktopApps" style="padding-top: 60px; padding-left: 20px; display: inline-block;">
-
-    <!-- Space Notes Icon -->
     <div id="notesOpen" class="desktop-icon" onclick="handleIconTap(event, this)">
       <img src="note.png" style="width: 54px; height: 54px; object-fit: contain;">
       <p class="app-title">Space notes</p>
     </div>
-
-    <!-- NEW DESKTOP ICON: Star Chart -->
     <div id="starchartOpen" class="desktop-icon" onclick="handleIconTap(event, this)">
       <img src="planets.png" style="width: 54px; height: 54px; object-fit: contain;">
       <p class="app-title">Star Chart</p>
     </div>
-
   </div>
-
-  <!-- APP WINDOW: Space Notes -->
   <div id="spaceNotesApp" style="position: absolute; top: 120px; left: 300px; display: none; width: 800px; height: 500px; border: 4mm ridge rgba(0, 112, 125, 0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 112, 125, 0.8);">
-    
-    <!-- Window Header / Title Bar -->
     <div id="spaceNotesAppheader" style="height: 30px; background: rgba(8, 12, 20, 0.95); backdrop-filter: blur(5px); cursor: move; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #d1d5db; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; letter-spacing: 1px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);">
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="color: #00e1ff; font-weight: bold;">[APP-02]</span>
@@ -75,15 +46,9 @@
       </div>
       <button id="notesClose" class="nasa-btn-close">[ABORT ✕]</button>
     </div>
-
     <iframe src="notes.html" style="width: 100%; height: calc(100% - 30px); border: none; display: block;"></iframe>
-
   </div>
-
-  <!-- NEW APP WINDOW: Star Chart -->
   <div id="starchart-window" style="position: absolute; top: 140px; left: 350px; display: none; width: 800px; height: 500px; border: 4mm ridge rgba(0, 112, 125, 0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 112, 125, 0.8);">
-    
-    <!-- Window Header / Title Bar -->
     <div id="starchart-windowheader" style="height: 30px; background: rgba(8, 12, 20, 0.95); backdrop-filter: blur(5px); cursor: move; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; color: #d1d5db; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; letter-spacing: 1px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);">
       <div style="display: flex; align-items: center; gap: 8px;">
         <span style="color: #00e1ff; font-weight: bold;">[APP-03]</span>
@@ -91,25 +56,17 @@
       </div>
       <button id="starchartClose" class="nasa-btn-close">[ABORT ✕]</button>
     </div>
-
     <iframe src="starchart.html" style="width: 100%; height: calc(100% - 30px); border: none; display: block;"></iframe>
-
   </div>
-  <!-- Custom Direction-Aware Rocket Cursor -->
-  <!-- Custom Direction-Aware Rocket Cursor -->
   <div class="custom-cursor">
     <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Rocket Body -->
       <path d="M12 2C12 2 7 6 7 13C7 17 9 20 12 22C15 20 17 17 17 13C17 6 12 2 12 2Z" fill="#0077b6" stroke="#90e0ef" stroke-width="1.5"/>
-     <!-- Fins -->
       <path d="M7 14L3 17V20L7 18V14Z" fill="#023e8a"/>
       <path d="M17 14L21 17V20L17 18V14Z" fill="#023e8a"/>
-      <!-- Window -->
       <circle cx="12" cy="10" r="2.5" fill="#011627" stroke="#90e0ef" stroke-width="1"/>
     </svg>
   </div>
   <script>
-  // Broadcast mouse data to the parent OS window
   document.addEventListener('mousemove', (e) => {
     window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
   });

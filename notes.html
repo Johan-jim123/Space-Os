@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Space Notes Telemetry</title>
-    <!-- CSS link stays inside head -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
-        <!-- Sidebar Navigation -->
+
         <div class="sidebar">
             <button class="new-log-btn">+ NEW_LOG</button>
             
@@ -38,17 +37,14 @@
                     <div class="log-date">2026.09.03</div>
                 </div>
             </div>
-        </div> <!-- End Sidebar -->
+        </div> 
 
-        <!-- Content Area -->
         <div class="content-area">
-            <!-- Telemetry Header -->
             <div class="telemetry-header">
                 <h2>[ SYS // MISSION LOGS ]</h2>
                 <p>STATUS: <span class="status-ok">NOMINAL</span> // UTC: 17:20:00</p>
             </div>
 
-            <!-- Main Content Area -->
             <div class="editor-container">
                 <div class="terminal-prompt">&gt; INPUT_</div>
                 <textarea class="log-input" placeholder="// Enter telemetry log data here..." spellcheck="false">[ TIME: 000:00:00:01 MET ]
@@ -75,10 +71,9 @@ RULE #4: ANOMALY DISCOVERY.
 
 > SYSTEM PROTOCOLS LOADED // STAY SAFE OUT THERE, ASTRONAUT</textarea>
             </div>
-        </div> <!-- End Content Area -->
-    </div> <!-- End App Container -->
+        </div> 
+    </div> 
     <script>
-  // Broadcast mouse data to the parent OS window
   document.addEventListener('mousemove', (e) => {
     window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
   });
@@ -91,7 +86,6 @@ RULE #4: ANOMALY DISCOVERY.
     window.parent.postMessage({ type: 'cursorUp' }, '*');
   });
 </script>
-    <!-- Link JS script right before </body> -->
     <script src="script.js"></script>
 </body>
 </html>

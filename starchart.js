@@ -7,8 +7,6 @@ function resize() {
 }
 window.addEventListener('resize', resize);
 resize();
-
-// Planetary Data with Telemetry Descriptions
 const planets = [
     { name: "SUN", distance: 0, size: 10, speed: 0, angle: 0, color: "#ffcc00", desc: "TYPE: Yellow Dwarf Star\nTEMP: ~5,500°C\nMASS: 99.8% of Solar System" },
     { name: "MERCURY", distance: 35, size: 3, speed: 0.025, angle: Math.random() * Math.PI * 2, color: "#a8a8a8", desc: "TYPE: Terrestrial\nORBIT: 88 Days\nINFO: Closest to Sun, extreme temperature swings." },
@@ -24,7 +22,6 @@ const planets = [
 let radarAngle = 0;
 let selectedPlanet = null;
 
-// Click Detection Engine
 canvas.addEventListener('click', (e) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -33,7 +30,6 @@ canvas.addEventListener('click', (e) => {
     let found = false;
 
     planets.forEach(p => {
-        // Compute click proximity tolerance (min 12px hit-box for easy clicking)
         const hitRadius = Math.max(p.size + 8, 12);
         const dist = Math.hypot(mouseX - p.currentX, mouseY - p.currentY);
 
@@ -43,7 +39,6 @@ canvas.addEventListener('click', (e) => {
         }
     });
 
-    // Deselect if clicking empty space
     if (!found) selectedPlanet = null;
 });
 
@@ -54,9 +49,7 @@ function animate() {
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
 
-    // 1. Render Orbits & Planets
     planets.forEach(p => {
-        // Draw orbital dotted line (Skip Sun)
         if (p.distance > 0) {
             ctx.beginPath();
             ctx.arc(cx, cy, p.distance, 0, Math.PI * 2);
@@ -67,12 +60,10 @@ function animate() {
             ctx.setLineDash([]);
         }
 
-        // Calculate Position
         p.angle += p.speed;
         p.currentX = cx + Math.cos(p.angle) * p.distance;
         p.currentY = cy + Math.sin(p.angle) * p.distance;
 
-        // Draw Planet Body
         ctx.beginPath();
         ctx.arc(p.currentX, p.currentY, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
@@ -81,7 +72,6 @@ function animate() {
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Draw Saturn's Rings
         if (p.hasRings) {
             ctx.beginPath();
             ctx.ellipse(p.currentX, p.currentY, p.size * 2.2, p.size * 0.7, Math.PI / 6, 0, Math.PI * 2);
@@ -90,7 +80,6 @@ function animate() {
             ctx.stroke();
         }
 
-        // Draw Selection Ring around clicked planet
         if (selectedPlanet === p) {
             ctx.beginPath();
             ctx.arc(p.currentX, p.currentY, p.size + 6, 0, Math.PI * 2);
@@ -99,15 +88,12 @@ function animate() {
             ctx.stroke();
         }
 
-        // Telemetry Label (Skip Sun)
         if (p.distance > 0) {
             ctx.fillStyle = 'rgba(0, 240, 255, 0.7)';
             ctx.font = '10px monospace';
             ctx.fillText(`[${p.name}]`, p.currentX + 8, p.currentY - 6);
         }
     });
-
-    // 2. Sweeping Radar Line
     radarAngle += 0.015;
     ctx.beginPath();
     ctx.moveTo(cx, cy);
@@ -117,33 +103,27 @@ function animate() {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // 3. Draw Telemetry Inspector Panel (if a planet is clicked)
     if (selectedPlanet) {
         const boxX = 15;
         const boxY = canvas.height - 125;
         const boxW = 360;
         const boxH = 125;
 
-        // Panel Background & Border
         ctx.fillStyle = 'rgba(2, 14, 26, 0.9)';
         ctx.fillRect(boxX, boxY, boxW, boxH);
         ctx.strokeStyle = '#00f0ff';
         ctx.lineWidth = 1;
         ctx.strokeRect(boxX, boxY, boxW, boxH);
 
-        // Header
         ctx.fillStyle = '#00f0ff';
         ctx.font = 'bold 12px monospace';
         ctx.fillText(`>> DATA_INSPECT // ${selectedPlanet.name}`, boxX + 10, boxY + 20);
 
-        // Line Divider
         ctx.beginPath();
         ctx.moveTo(boxX + 10, boxY + 26);
         ctx.lineTo(boxX + boxW - 10, boxY + 26);
         ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
         ctx.stroke();
-
-        // Description Text
         ctx.fillStyle = '#d1d5db';
         ctx.font = '10px monospace';
         const lines = selectedPlanet.desc.split('\n');

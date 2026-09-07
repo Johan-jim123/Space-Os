@@ -1,39 +1,14 @@
-:root {
-    --neon-color: #00f3ff;
+<!-- This is not Ai-->
+:root{
+    --neon-color : #00f3ff;
 }
-
-/* Universal Body with Background Image */
-/* Universal Body with Background Image */
-/* Universal Body for Desktop Shell */
-body {
+body{
     margin: 0;
     min-height: 100vh;
-    background-color: #04070d; /* Deep Vacuum OS background */
-    font-family: 'Share Tech Mono', monospace;
-    overflow: hidden;
+    background-color: #04070d;
+    font-family:'shared tech mono', monospace;
+    overflow:hidden
 }
-
-body, button, input, textarea {
-    font-family: 'Share Tech Mono', monospace;
-}
-
-/* Original Image Styling & Floating Animation */
-img {
-    filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-
-/* Typography & Neon Glow Effects */
 h1 {
     font-family: 'Audiowide', sans-serif;
     color: #fff;
@@ -45,13 +20,11 @@ h1 {
         0 0 80px var(--neon-color);
     margin-bottom: 5px;
 }
-
 h2 {
     font-family: 'Orbitron', sans-serif;
     color: #FFFFFF;
     font-size:1.1rem;
 }
-
 p {
     font-family: 'Space Mono', monospace;
     color: #A5F3FC;
@@ -59,8 +32,21 @@ p {
     letter-spacing: 2px;
     margin-top: 0px;
 }
-
-/* NASA Telemetry Buttons */
+button, input, textarea {
+    font-family: 'Share Tech Mono', monospace;
+}
+img {
+    filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
 .nasa-btn-open {
     position: absolute;
     top: 10px;
@@ -83,13 +69,11 @@ p {
     user-select: none;
     transition: all 0.2s ease;
 }
-
 .nasa-btn-open:hover {
     border-color: #00e1ff;
     background: rgba(12, 20, 35, 0.98);
     box-shadow: 0 0 12px rgba(0, 225, 255, 0.6);
 }
-
 .nasa-btn-close {
     display: inline-flex;
     align-items: center;
@@ -106,17 +90,12 @@ p {
     user-select: none;
     transition: all 0.2s ease;
 }
-
 .nasa-btn-close:hover {
     background: rgba(255, 59, 48, 0.85);
     color: #ffffff;
     border-color: #ff3b30;
     box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
 }
-
-/* Base Desktop Icon Container */
-
-/* Desktop Launcher Icon Titles */
 .app-title {
     margin-top: 4px;
     font-family: 'Share Tech Mono', monospace;
@@ -132,13 +111,10 @@ p {
         0 0 6px rgba(0, 225, 255, 0.7);
     transition: all 0.2s ease;
 }
-
 .app-title:hover {
     color: #ffffff;
     text-shadow: 0 0 10px rgba(0, 225, 255, 1);
 }
-
-/* Base Desktop Icon Container */
 .desktop-icon {
     display: flex;
     flex-direction: column;
@@ -153,19 +129,9 @@ p {
     box-sizing: border-box;
     transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
-
-/* Float entire container (icon + title) together by default */
 .desktop-icon:not(.selected) {
     animation: float 3s ease-in-out infinite;
 }
-
-/* Prevent inner image from running its own separate animation */
-.desktop-icon img {
-    animation: none !important;
-    margin-bottom: 4px;
-}
-
-/* Selected Highlight Box - Freezes animation and locks icon + title in place */
 .selected {
     animation: none !important;
     transform: translateY(0px);
@@ -189,13 +155,13 @@ p {
     padding: 10px;
 }
 .content-area {
-    flex: 1; /* Takes up ALL remaining horizontal space next to the sidebar */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     padding: 20px;
-    min-width: 0; /* Prevents flex items from overflowing or forcing weird text breaks */
+    min-width: 0; 
 }
-/* 1. Parent flex container (Header Bar) */
+
 .telemetry-header {
     display: flex;
     justify-content: space-between;
@@ -234,7 +200,6 @@ p {
     box-sizing: border-box;
 }
 
-/* New Log Action Button */
 .new-log-btn {
     background: transparent;
     border: 1px solid #00e1ff;
@@ -252,7 +217,7 @@ p {
     box-shadow: 0 0 8px rgba(0, 225, 255, 0.4);
 }
 
-/* Sidebar Section Header */
+
 .sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -268,7 +233,6 @@ p {
     color: #00e1ff;
 }
 
-/* Log Entry Cards */
 .log-list {
     display: flex;
     flex-direction: column;
@@ -351,7 +315,6 @@ p {
     color: #3a5266;
 }
 
-/* Custom Cyan Scrollbar */
 .log-input::-webkit-scrollbar {
     width: 6px;
 }
@@ -362,12 +325,12 @@ p {
 .log-input::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 225, 255, 0.5);
 }
-/* Hide default system hardware cursor */
+
 * {
   cursor: none !important;
 }
 
-/* Custom Rocket Cursor */
+
 .custom-cursor {
   width: 24px;
   height: 24px;
@@ -380,13 +343,9 @@ p {
   filter: drop-shadow(0 0 6px #00f0ff);
   transition: transform 0.05s ease-out;
 }
-
-/* Thruster Click Pulse */
 .custom-cursor.clicking {
   filter: drop-shadow(0 0 12px #ff4d4d);
 }
-
-/* Thruster Particle Styling */
 .thruster-particle {
   position: fixed;
   width: 6px;
@@ -400,7 +359,6 @@ p {
   animation: thrusterFade 0.4s linear forwards;
 }
 
-/* Particle shrinking & color shift animation */
 @keyframes thrusterFade {
   0% {
     opacity: 1;
