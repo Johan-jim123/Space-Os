@@ -1,376 +1,287 @@
-<!-- This is not Ai-->
-:root{
-    --neon-color : #00f3ff;
+h1{
+    color:#fff;
+    font-size: 45px;
+    font-family:'Orbitron', monospace;
+    text-shadow: 
+    0 0 4px #fff,
+    0 0 10px #fff,
+    0 0 20px #00FFFF,
+    0 0 40px #00FFFF,
+    0 0 80px #00FFFF,
+    0 0 100px #00FFFF,
+    0 0 150px #00FFFF;
+    margin-bottom: 0;
+    margin-top: 5px;
 }
-body{
+p{
+    font-size: 25px;
+    margin-top: 5px;
+    color:aquamarine;
+    font-family:'Audiowide', sans-serif
+    
+}
+body,html{
     margin: 0;
-    min-height: 100vh;
-    background-color: #04070d;
-    font-family:'shared tech mono', monospace;
-    overflow:hidden
-}
-h1 {
-    font-family: 'Audiowide', sans-serif;
-    color: #fff;
-    text-shadow: 
-        0 0 5px var(--neon-color),
-        0 0 10px var(--neon-color),
-        0 0 20px var(--neon-color),
-        0 0 40px var(--neon-color),
-        0 0 80px var(--neon-color);
-    margin-bottom: 5px;
-}
-h2 {
-    font-family: 'Orbitron', sans-serif;
-    color: #FFFFFF;
-    font-size:1.1rem;
-}
-p {
-    font-family: 'Space Mono', monospace;
-    color: #A5F3FC;
-    font-size: 1.25rem;
-    letter-spacing: 2px;
-    margin-top: 0px;
-}
-button, input, textarea {
-    font-family: 'Share Tech Mono', monospace;
-}
-img {
-    filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4));
-    animation: float 3s ease-in-out infinite;
-}
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-12px);
-    }
-}
-.nasa-btn-open {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    z-index: 100;
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    background: rgba(8, 12, 20, 0.95);
-    color: #ffffff;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    border: 1px solid rgba(0, 225, 255, 0.4);
-    border-left: 3px solid #00e1ff;
-    border-radius: 2px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 6px rgba(0, 225, 255, 0.3);
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.2s ease;
-}
-.nasa-btn-open:hover {
-    border-color: #00e1ff;
-    background: rgba(12, 20, 35, 0.98);
-    box-shadow: 0 0 12px rgba(0, 225, 255, 0.6);
-}
-.nasa-btn-close {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 8px;
-    background: rgba(255, 59, 48, 0.15);
-    color: #ff3b30;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    border: 1px solid rgba(255, 59, 48, 0.6);
-    border-radius: 2px;
-    cursor: pointer;
-    user-select: none;
-    transition: all 0.2s ease;
-}
-.nasa-btn-close:hover {
-    background: rgba(255, 59, 48, 0.85);
-    color: #ffffff;
-    border-color: #ff3b30;
-    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
-}
-.app-title {
-    margin-top: 4px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: #00e1ff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-align: center;
-    user-select: none;
-    text-shadow: 
-        0 0 4px #000000, 
-        0 0 8px #000000, 
-        0 0 6px rgba(0, 225, 255, 0.7);
-    transition: all 0.2s ease;
-}
-.app-title:hover {
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(0, 225, 255, 1);
-}
-.desktop-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 84px;
-    padding: 10px 6px;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    user-select: none;
-    box-sizing: border-box;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-.desktop-icon:not(.selected) {
-    animation: float 3s ease-in-out infinite;
-}
-.selected {
-    animation: none !important;
-    transform: translateY(0px);
-    background: rgba(0, 225, 255, 0.15) !important;
-    border: 1px solid #00e1ff !important;
-    border-radius: 8px;
-    box-shadow: 0 0 12px rgba(0, 225, 255, 0.5);
-}
-.app-container {
-    display: flex;
-    flex-direction: row;
-    width: 100vw;
-    height: 100vh;
-    background:#080c14;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
-.sidebar {
-    width: 200px;
-    border-right: 1px solid rgba(0, 225, 255, 0.2);
-    background:rgba(4, 8, 15, 0.95);
+.close-button1{
+  display: flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: rgba(255, 59, 48, 0.12);
+  color: #ff3b30;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 59, 48, 0.5);
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  
+}
+
+.close-button1:hover{
+    background-color:rgb(250, 66, 66);
+}
+.close-button1:active{
+    scale: 0.98;
+}
+*{cursor:none;}
+
+.cursor1{
+    position:fixed;
+    top:0;
+    left:0;
+    width: 24px;
+    height: 24px;
+    pointer-events:none;
+    z-index:9999;
+    transform:translate(-50%,-50%);
+
+}
+.thruster-particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background-color: #00f0ff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    animation: thrusterFade 0.4s linear forwards;}
+
+@keyframes thrusterFade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        background-color: #00f0ff;
+        box-shadow: 0 0 8px #00f0ff;
+    }
+    50% {
+        background-color: #ff9900;
+        box-shadow: 0 0 8px #ff9900;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+        background-color: #ff2200;
+        box-shadow: 0 0 8px #ff2200;
+    }}
+    .no{
+    position:absolute;
+    display:inline-block;
+    padding: 4px 25px;
+    font-size: 15px;
+    font-weight:800;
+    text-align: center;
+    border-radius:0;
+    border: 2px solid rgba(0, 225, 255, 0.4); 
+    border-left: 3px solid #00e1ff;
+    background-color:rgba(8, 12, 20, 0.95);
+    margin-top: 2px;
+    user-select:none;
+    font-family:'Share Tech Mono', monospace;
+    color:white;
+}
+.no:hover{
+    background-color:rgba(35, 41, 54, 0.82);
+    border-color: rgba(112, 238, 255, 0.4);
+}
+.notes-container {
+    height: 100vh;
+    width:100%;
+    background:#080c14;
+    display:flex;
+    flex-direction:row;
+    overflow:hidden;
+}
+.sidebar{
+    width:220px;
+    background-color:rgba(8,12,20,0.95);
+    display:flex;
+    flex-direction:column;
+    border-right: 1px solid rgba(0, 225, 255, 0.3);
     padding: 10px;
+    gap: 15px;
+    box-sizing:border-box;
 }
-.content-area {
-    flex: 1; 
-    display: flex;
-    flex-direction: column;
+.content-area{
+    display:flex;
+    flex-direction:column;
+    flex:1;
     padding: 20px;
-    min-width: 0; 
+    gap: 15px;
+    background-color:rgba(8,12,20,0.95);
+    overflow:hidden;
 }
-
-.telemetry-header {
-    display: flex;
+.log-list{
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    overflow-y:hidden;
+}
+.log-item{
+    padding: 12px;
+    background-color: rgba(4, 8, 15, 0.6);
+    border:1px solid rgba(0, 225, 255, 0.2);
+}
+.log-item:active{
+    border:1px solid rgba(0, 225, 255, 0.1);
+    background-color: rgba(0, 225, 255, 0.1);
+}
+.sidebar-header{
+    display:flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 225, 255, 0.3);
-    padding-bottom: 10px;
+    font-family:'Share Tech Mono', monospace;
+    font-size: 20px;
+    letter-spacing:  1.5px;
+    color: #00a8b5;
+    margin-bottom: 10px;
+    border-bottom:2px solid rgba(0, 225, 255, 0.15);
 }
+.log-title{
+    font-family:'Orbitron', sans-serif;
+    color:white;
+    font-weight: bold;
+    margin-top: 0;
+}      
+.log-date{
+    font-family:'Share Tech Mono', monospace;
+    color: #00a8b5;
+    font-size: larger;
+} 
+.th{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-right :0px;
+    border: 1px solid rgba(0, 225, 255, 0.3);
+    background: rgba(4, 8, 15,1);
+    align-items:center
 
-.telemetry-header h2 {
+}
+.status-ok{
+    font-family:'Share Tech Mono', monospace;
+    color:#00ff88;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+}
+.th h2{
     font-family: 'Orbitron', sans-serif;
     color: #ffffff;
     font-size: 1.1rem;
     letter-spacing: 2px;
     margin: 0;
 }
-
-.telemetry-header p {
-    font-family: 'Space Mono', monospace;
-    color: #a5f3fc;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    margin: 0;
+.th p{
+    font-size: 14px;
+    padding-right: 0px;
 }
-
-.status-ok {
-    color: #00ff88;
-}
-.sidebar {
-    width: 220px;
-    background: rgba(4, 7, 13, 0.85);
-    border-right: 1px solid rgba(0, 225, 255, 0.2);
-    padding: 15px;
-    display: flex;
+.ec{
+    display:flex;
     flex-direction: column;
-    gap: 15px;
+    flex: 1;
+    background: rgba(4, 8, 5, 0.8);
+    border: 1px solid rba(0,225,255,0.3);
+    padding: 15px;
     box-sizing: border-box;
 }
-
-.new-log-btn {
-    background: transparent;
-    border: 1px solid #00e1ff;
-    color: #00e1ff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.8rem;
-    padding: 8px;
-    cursor: pointer;
-    letter-spacing: 1.5px;
-    transition: all 0.2s ease;
+.prompt{
+    font-family:'Share Tech Mono', monospace;
+    font-size: 15px;
+    font-weight: bold;
+    color:rgba(0, 225, 255, 0.7) ;
 }
-
-.new-log-btn:hover {
-    background: rgba(0, 225, 255, 0.15);
-    box-shadow: 0 0 8px rgba(0, 225, 255, 0.4);
-}
-
-
-.sidebar-header {
+.log-input{
     display: flex;
-    justify-content: space-between;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: #5c788a;
-    letter-spacing: 1px;
-    border-bottom: 1px dashed rgba(0, 225, 255, 0.15);
-    padding-bottom: 5px;
-}
-
-.log-count {
-    color: #00e1ff;
-}
-
-.log-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    overflow-y: auto;
-}
-
-.log-item {
-    padding: 8px 10px;
-    border-left: 2px solid transparent;
-    background: rgba(255, 255, 255, 0.02);
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.log-item:hover {
-    background: rgba(0, 225, 255, 0.05);
-    border-left-color: rgba(0, 225, 255, 0.5);
-}
-
-.log-item.active {
-    background: rgba(0, 225, 255, 0.1);
-    border-left-color: #00e1ff;
-}
-
-.log-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: #a5f3fc;
-    white-space: nowrap;
+    flex:1;
     overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.log-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: #5c788a;
-    margin-top: 3px;
-}
-.content-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-    background: #080c14;
-}
-
-.editor-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.terminal-prompt {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    color: #00e1ff;
-    letter-spacing: 1px;
-    opacity: 0.7;
-}
-
-.log-input {
-    flex: 1;
     width: 100%;
-    background: transparent;
+    background-color: rgba(4, 8, 5, 0.8);
+    color: #e0f7fc;
+    font-family:'Share Tech Mono', monospace;
     border: none;
     outline: none;
-    resize: none;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #a5f3fc;
-    box-sizing: border-box;
 }
-
-.log-input::placeholder {
-    color: #3a5266;
+.l-button{
+    display: block;
+    width:100%;
+    padding-top: 10px;
+    font-family:'Share Tech Mono', monospace;
+    font-size: 19px;
+    font-weight: bold;
+    color:#00e1ff;
+    background: rgb(2, 5, 10);
+    border: 1px solid #00e1ff;
 }
-
-.log-input::-webkit-scrollbar {
-    width: 6px;
+.l-button:hover{
+    background: #00e1ff;
+    color:black;
+    border: 1px solid black;
 }
-.log-input::-webkit-scrollbar-thumb {
-    background: rgba(0, 225, 255, 0.2);
-    border-radius: 3px;
+.l-button:active{
+    scale: 0.98;
 }
-.log-input::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 225, 255, 0.5);
+.app-title{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color:#00f0ff;
+    text-shadow: 
+    0 0 4px #fff,
+    0 0 10px #fff,
+    0 0 20px #00FFFF,
+    0 0 40px #00FFFF,
+    0 0 80px #00FFFF,
+    0 0 100px #00FFFF,
+    0 0 150px #00FFFF;
+    margin-bottom: 0;
+    margin-top: 5px;
+    font-weight: bold;
 }
-
-* {
-  cursor: none !important;
+.desktop-icon{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    height: auto;
+    
 }
-
-
-.custom-cursor {
-  width: 24px;
-  height: 24px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 99999;
-  filter: drop-shadow(0 0 6px #00f0ff);
-  transition: transform 0.05s ease-out;
+.desktop-icon img{
+    margin-bottom: 10px;
+    margin-top: 15px;
+    box-shadow:(0 0 6px rgba(0, 225, 255, 0.4));
 }
-.custom-cursor.clicking {
-  filter: drop-shadow(0 0 12px #ff4d4d);
-}
-.thruster-particle {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background-color: #00f0ff;
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 8px #00f0ff, 0 0 12px #ff4d4d;
-  z-index: 99998;
-  animation: thrusterFade 0.4s linear forwards;
-}
-
-@keyframes thrusterFade {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    background-color: #00f0ff;
-  }
-  50% {
-    background-color: #ffaa00;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.2);
-    background-color: #ff4d4d;
-  }
+.desktop-icon.selected{
+    background: rgba(0, 225, 255, 0.25);
+    border: 1px solid #00e1ff;
+    border-radius: 20;
 }

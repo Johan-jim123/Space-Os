@@ -1,5 +1,5 @@
 /* Open Launcher Button - Original Palette */
-.nasa-btn-open {
+.nc {
   position: absolute;
   top: 10px;
   left: 20px;
@@ -19,16 +19,17 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.2s ease;
+  height:20px;
 }
 
-.nasa-btn-open:hover {
+.nc:hover {
   border-color: #00e1ff;
   box-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
 }
 
 /* Window Close / Abort Button - Original Palette */
-.nasa-btn-close {
-  display: inline-flex;
+.close-button {
+  display: flex;
   align-items: center;
   padding: 2px 6px;
   background: rgba(255, 59, 48, 0.12);
@@ -42,9 +43,13 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.2s ease;
+  
 }
 
-.nasa-btn-close:hover {
+.close-button:active {
   background: rgba(255, 59, 48, 0.4);
   color: #ffffff;
+}
+.close-button:hover{
+    background-color:rgb(250, 66, 66);
 }

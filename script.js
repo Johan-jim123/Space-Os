@@ -285,7 +285,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
   const textarea = document.querySelector('.log-input');
   const logItems = document.querySelectorAll('.log-item');
-  const newLogBtn = document.querySelector('.new-log-btn');
+  const newLogBtn = document.querySelector('.l-button');
 
   logItems.forEach((item, index) => {
     item.addEventListener('click', () => {
@@ -314,7 +314,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
 
 // --- CUSTOM ROCKET CURSOR LOGIC ---
-const cursor = document.querySelector('.custom-cursor');
+const cursor = document.querySelector('.cursor1');
 
 let lastX = 0;
 let lastY = 0;

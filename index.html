@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JJ-OS</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Buttons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 <body style="background-image: url('Main.png'); background-size: cover; background-repeat: no-repeat; background-position: center; margin: 0; height: 100vh; width: 100vw; overflow: hidden;">
   <div id="top" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 9999; pointer-events: none;">
     <div id="timeElement" style="position: absolute; top: 10px; right: 20px; pointer-events: auto;"></div>
-    <span id="welcomeopen" class="nasa-btn-open" style="pointer-events: auto;">
+    <span id="welcomeopen" class="nc" style="pointer-events: auto;">
       SYS // JJ-OS
     </span>
   </div>
@@ -22,7 +23,7 @@
         <span style="color: #00e1ff; font-weight: bold;">[FLT-01]</span>
         <span style="text-transform: uppercase; color: #f3f4f6;">JJ-OS // WELCOME_MODULE</span>
       </div>
-      <span id="welcomeclose" class="nasa-btn-close">
+      <span id="welcomeclose" class="close-button1">
         [ABORT ✕]
       </span>
     </div>
@@ -44,7 +45,7 @@
         <span style="color: #00e1ff; font-weight: bold;">[APP-02]</span>
         <span style="text-transform: uppercase; color: #f3f4f6;">JJ-OS // SPACE_NOTES</span>
       </div>
-      <button id="notesClose" class="nasa-btn-close">[ABORT ✕]</button>
+      <button id="notesClose" class="close-button">[ABORT ✕]</button>
     </div>
     <iframe src="notes.html" style="width: 100%; height: calc(100% - 30px); border: none; display: block;"></iframe>
   </div>
@@ -54,11 +55,11 @@
         <span style="color: #00e1ff; font-weight: bold;">[APP-03]</span>
         <span style="text-transform: uppercase; color: #f3f4f6;">JJ-OS // STAR_CHART</span>
       </div>
-      <button id="starchartClose" class="nasa-btn-close">[ABORT ✕]</button>
+      <button id="starchartClose" class="close-button">[ABORT ✕]</button>
     </div>
     <iframe src="starchart.html" style="width: 100%; height: calc(100% - 30px); border: none; display: block;"></iframe>
   </div>
-  <div class="custom-cursor">
+  <div class="cursor1">
     <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2C12 2 7 6 7 13C7 17 9 20 12 22C15 20 17 17 17 13C17 6 12 2 12 2Z" fill="#0077b6" stroke="#90e0ef" stroke-width="1.5"/>
       <path d="M7 14L3 17V20L7 18V14Z" fill="#023e8a"/>
