@@ -1,138 +1,124 @@
-const canvas = document.getElementById('star-canvas');
+const targets = [];
+let currentCoords = { x: 0, y: 0, ra: '', dec: '' };
+
+const canvas = document.getElementById('starCanvas');
 const ctx = canvas.getContext('2d');
-const coordDisplay = document.getElementById('star-coords');
+const clockEl = document.getElementById('clock');
+const targetNameInput = document.getElementById('targetName');
+const raInput = document.getElementById('targetRA');
+const decInput = document.getElementById('targetDec');
+const form = document.getElementById('targetForm');
+const targetList = document.getElementById('targetList');
 
-let width, height;
-const stars = [];
-const STAR_COUNT = 45;
-
-function resize() {
-  width = canvas.width = canvas.parentElement.clientWidth;
-  height = canvas.height = canvas.parentElement.clientHeight;
+function resizeCanvas() {
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+  drawSky();
 }
-for (let i = 0; i < STAR_COUNT; i++) {
-  stars.push({
-    x: Math.random() * (width || 300),
-    y: Math.random() * (height || 200),
-    radius: Math.random() * 1.2 + 0.5,
-    alpha: Math.random(),
-    pulse: Math.random() * 0.02 + 0.005
+window.addEventListener('resize', resizeCanvas);
+
+const backgroundStars = Array.from({ length: 150 }, () => ({
+  x: Math.random(),
+  y: Math.random(),
+  size: Math.random() * 1.5,
+  alpha: Math.random()
+}));
+
+function drawSky() {
+  ctx.fillStyle = '#02040a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  backgroundStars.forEach(star => {
+    ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+    ctx.fillRect(star.x * canvas.width, star.y * canvas.height, star.size, star.size);
+  });
+
+  if (currentCoords.x && currentCoords.y) {
+    ctx.strokeStyle = '#00e1ff';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(currentCoords.x, currentCoords.y, 12, 0, Math.PI * 2);
+    ctx.moveTo(currentCoords.x - 18, currentCoords.y);
+    ctx.lineTo(currentCoords.x + 18, currentCoords.y);
+    ctx.moveTo(currentCoords.x, currentCoords.y - 18);
+    ctx.lineTo(currentCoords.x, currentCoords.y + 18);
+    ctx.stroke();
+  }
+
+  targets.forEach(t => {
+    ctx.fillStyle = '#ff0055';
+    ctx.beginPath();
+    ctx.arc(t.x, t.y, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '10px monospace';
+    ctx.fillText(t.name, t.x + 8, t.y + 3);
   });
 }
-let radarAngle = 0;
-let selectedPlanet = null;
 
-canvas.addEventListener('click', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+function updateCoords(x, y) {
+  const raHours = Math.floor((x / canvas.width) * 24);
+  const raMins = Math.floor(((x / canvas.width) * 1440) % 60);
+  const decDegrees = Math.floor(((canvas.height - y) / canvas.height) * 180 - 90);
 
-    let found = false;
+  currentCoords = {
+    x,
+    y,
+    ra: `${String(raHours).padStart(2, '0')}h ${String(raMins).padStart(2, '0')}m`,
+    dec: `${decDegrees >= 0 ? '+' : ''}${decDegrees}° 00'`
+  };
 
-    planets.forEach(p => {
-        const hitRadius = Math.max(p.size + 8, 12);
-        const dist = Math.hypot(mouseX - p.currentX, mouseY - p.currentY);
-
-        if (dist <= hitRadius) {
-            selectedPlanet = p;
-            found = true;
-        }
-    });
-
-    if (!found) selectedPlanet = null;
-});
-
-function animate() {
-    ctx.fillStyle = 'rgba(2, 11, 20, 0.25)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
-
-    planets.forEach(p => {
-        if (p.distance > 0) {
-            ctx.beginPath();
-            ctx.arc(cx, cy, p.distance, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([4, 4]);
-            ctx.stroke();
-            ctx.setLineDash([]);
-        }
-
-        p.angle += p.speed;
-        p.currentX = cx + Math.cos(p.angle) * p.distance;
-        p.currentY = cy + Math.sin(p.angle) * p.distance;
-
-        ctx.beginPath();
-        ctx.arc(p.currentX, p.currentY, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.shadowBlur = (selectedPlanet === p) ? 18 : 8;
-        ctx.shadowColor = (selectedPlanet === p) ? '#00f0ff' : p.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        if (p.hasRings) {
-            ctx.beginPath();
-            ctx.ellipse(p.currentX, p.currentY, p.size * 2.2, p.size * 0.7, Math.PI / 6, 0, Math.PI * 2);
-            ctx.strokeStyle = "rgba(230, 194, 128, 0.7)";
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-        }
-
-        if (selectedPlanet === p) {
-            ctx.beginPath();
-            ctx.arc(p.currentX, p.currentY, p.size + 6, 0, Math.PI * 2);
-            ctx.strokeStyle = '#00f0ff';
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-        }
-
-        if (p.distance > 0) {
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.7)';
-            ctx.font = '10px monospace';
-            ctx.fillText(`[${p.name}]`, p.currentX + 8, p.currentY - 6);
-        }
-    });
-    radarAngle += 0.015;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    const radarLength = Math.max(canvas.width, canvas.height);
-    ctx.lineTo(cx + Math.cos(radarAngle) * radarLength, cy + Math.sin(radarAngle) * radarLength);
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    if (selectedPlanet) {
-        const boxX = 15;
-        const boxY = canvas.height - 125;
-        const boxW = 360;
-        const boxH = 125;
-
-        ctx.fillStyle = 'rgba(2, 14, 26, 0.9)';
-        ctx.fillRect(boxX, boxY, boxW, boxH);
-        ctx.strokeStyle = '#00f0ff';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(boxX, boxY, boxW, boxH);
-
-        ctx.fillStyle = '#00f0ff';
-        ctx.font = 'bold 12px monospace';
-        ctx.fillText(`>> DATA_INSPECT // ${selectedPlanet.name}`, boxX + 10, boxY + 20);
-
-        ctx.beginPath();
-        ctx.moveTo(boxX + 10, boxY + 26);
-        ctx.lineTo(boxX + boxW - 10, boxY + 26);
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
-        ctx.stroke();
-        ctx.fillStyle = '#d1d5db';
-        ctx.font = '10px monospace';
-        const lines = selectedPlanet.desc.split('\n');
-        lines.forEach((line, index) => {
-            ctx.fillText(line, boxX + 10, boxY + 45 + (index * 18));
-        });
-    }
-
-    requestAnimationFrame(animate);
+  raInput.value = currentCoords.ra;
+  decInput.value = currentCoords.dec;
 }
 
-animate();
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  updateCoords(x, y);
+  drawSky();
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!currentCoords.x) return;
+
+  const newTarget = {
+    name: targetNameInput.value.toUpperCase(),
+    ra: currentCoords.ra,
+    dec: currentCoords.dec,
+    x: currentCoords.x,
+    y: currentCoords.y
+  };
+
+  targets.push(newTarget);
+  renderTargetList();
+  
+  targetNameInput.value = '';
+  drawSky();
+});
+
+function renderTargetList() {
+  targetList.innerHTML = '';
+  targets.forEach(t => {
+    const li = document.createElement('li');
+    li.className = 'target-card';
+    li.innerHTML = `
+      <strong>${t.name}</strong><br>
+      RA: ${t.ra} | DEC: ${t.dec}
+    `;
+    targetList.appendChild(li);
+  });
+}
+
+function updateClock() {
+  const now = new Date();
+  clockEl.textContent = `UTC: ${now.toUTCString().split(' ')[4]}`;
+}
+setInterval(updateClock, 1000);
+
+resizeCanvas();
+updateClock();
