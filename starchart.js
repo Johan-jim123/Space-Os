@@ -9,21 +9,16 @@ const STAR_COUNT = 45;
 function resize() {
   width = canvas.width = canvas.parentElement.clientWidth;
   height = canvas.height = canvas.parentElement.clientHeight;
-}}
-window.addEventListener('resize', resize);
-resize();
-const planets = [
-    { name: "SUN", distance: 0, size: 10, speed: 0, angle: 0, color: "#ffcc00", desc: "TYPE: Yellow Dwarf Star\nTEMP: ~5,500°C\nMASS: 99.8% of Solar System" },
-    { name: "MERCURY", distance: 35, size: 3, speed: 0.025, angle: Math.random() * Math.PI * 2, color: "#a8a8a8", desc: "TYPE: Terrestrial\nORBIT: 88 Days\nINFO: Closest to Sun, extreme temperature swings." },
-    { name: "VENUS", distance: 60, size: 4, speed: 0.015, angle: Math.random() * Math.PI * 2, color: "#e0c38c", desc: "TYPE: Terrestrial\nORBIT: 225 Days\nINFO: Hottest planet due to runaway greenhouse effect." },
-    { name: "EARTH", distance: 90, size: 4.5, speed: 0.01, angle: Math.random() * Math.PI * 2, color: "#00f0ff", desc: "TYPE: Terrestrial\nORBIT: 365 Days\nINFO: Home world. Supports abundant liquid water & life." },
-    { name: "MARS", distance: 120, size: 3.5, speed: 0.008, angle: Math.random() * Math.PI * 2, color: "#ff4d4d", desc: "TYPE: Terrestrial\nORBIT: 687 Days\nINFO: The Red Planet. Features massive extinct volcanoes." },
-    { name: "JUPITER", distance: 160, size: 7.5, speed: 0.003, angle: Math.random() * Math.PI * 2, color: "#c99a63", desc: "TYPE: Gas Giant\nORBIT: 12 Years\nINFO: Largest planet. Famous for the Great Red Spot storm." },
-    { name: "SATURN", distance: 205, size: 6, speed: 0.002, angle: Math.random() * Math.PI * 2, color: "#e6c280", hasRings: true, desc: "TYPE: Gas Giant\nORBIT: 29 Years\nINFO: Encircled by complex system of icy rings." },
-    { name: "URANUS", distance: 245, size: 5, speed: 0.0012, angle: Math.random() * Math.PI * 2, color: "#55ffff", desc: "TYPE: Ice Giant\nORBIT: 84 Years\nINFO: Rotates almost completely on its side." },
-    { name: "NEPTUNE", distance: 280, size: 5, speed: 0.0008, angle: Math.random() * Math.PI * 2, color: "#2753f1", desc: "TYPE: Ice Giant\nORBIT: 165 Years\nINFO: Dark, cold, and whipped by supersonic winds." }
-];
-
+}
+for (let i = 0; i < STAR_COUNT; i++) {
+  stars.push({
+    x: Math.random() * (width || 300),
+    y: Math.random() * (height || 200),
+    radius: Math.random() * 1.2 + 0.5,
+    alpha: Math.random(),
+    pulse: Math.random() * 0.02 + 0.005
+  });
+}
 let radarAngle = 0;
 let selectedPlanet = null;
 
