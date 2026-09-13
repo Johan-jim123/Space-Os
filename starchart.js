@@ -1,10 +1,15 @@
-const canvas = document.getElementById('starCanvas');
+const canvas = document.getElementById('star-canvas');
 const ctx = canvas.getContext('2d');
+const coordDisplay = document.getElementById('star-coords');
+
+let width, height;
+const stars = [];
+const STAR_COUNT = 45;
 
 function resize() {
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = canvas.parentElement.clientHeight;
-}
+  width = canvas.width = canvas.parentElement.clientWidth;
+  height = canvas.height = canvas.parentElement.clientHeight;
+}}
 window.addEventListener('resize', resize);
 resize();
 const planets = [
