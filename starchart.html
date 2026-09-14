@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JJ-OS // SOLAR SYSTEM ORBIT PLOTTER</title>
+    <title>JJ-OS // PLANET TELEMETRY TRACKER</title>
     <style>
         body, html {
             margin: 0;
@@ -12,7 +12,7 @@
             overflow: hidden;
             background-color: #020b14;
             font-family: monospace;
-            color: #00f0ff;
+            color: #00e1ff;
         }
 
         .dashboard {
@@ -25,7 +25,7 @@
         .sys-bar {
             height: 35px;
             background: #031424;
-            border-bottom: 2px solid #00f0ff;
+            border-bottom: 2px solid #00e1ff;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -45,35 +45,36 @@
             height: 100%;
             display: block;
         }
+
+        * { 
+            cursor: none !important; 
+        }
     </style>
 </head>
 <body>
 
     <div class="dashboard">
         <div class="sys-bar">
-            <span>SYS // ORBITAL_RADAR</span>
+            <span>SYS // PLANET_TELEMETRY_RADAR</span>
         </div>
         <div class="canvas-container">
             <canvas id="starCanvas"></canvas>
         </div>
     </div>
-    <style>
-  * { cursor: none !important; }
-</style>
 
-<script>
-  document.addEventListener('mousemove', (e) => {
-    window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
-  });
-  
-  document.addEventListener('mousedown', () => {
-    window.parent.postMessage({ type: 'cursorDown' }, '*');
-  });
-  
-  document.addEventListener('mouseup', () => {
-    window.parent.postMessage({ type: 'cursorUp' }, '*');
-  });
-</script>
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
+        });
+        
+        document.addEventListener('mousedown', () => {
+            window.parent.postMessage({ type: 'cursorDown' }, '*');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            window.parent.postMessage({ type: 'cursorUp' }, '*');
+        });
+    </script>
     <script src="starchart.js"></script>
 </body>
 </html>
