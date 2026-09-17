@@ -9,7 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
+<script src="storage.js"></script>
 <body style="background-image: url('Main.png'); background-size: cover; background-repeat: no-repeat; background-position: center; margin: 0; height: 100vh; width: 100vw; overflow: hidden;">
   <div id="top" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 9999; pointer-events: none;">
     <div id="timeElement" style="position: absolute; top: 10px; right: 20px; pointer-events: auto;"></div>
@@ -73,9 +75,14 @@
     </svg>
   </div>
 
-  <script>
+<script>
   document.addEventListener('mousemove', (e) => {
-    window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
+    // Send relative coordinates along with iframe viewport offsets
+    window.parent.postMessage({ 
+      type: 'cursorMove', 
+      x: e.clientX, 
+      y: e.clientY 
+    }, '*');
   });
   
   document.addEventListener('mousedown', () => {
@@ -85,8 +92,8 @@
   document.addEventListener('mouseup', () => {
     window.parent.postMessage({ type: 'cursorUp' }, '*');
   });
-  </script>
-  <script src="script.js"></script>
+</script>
+
 
 </body>
 </html>

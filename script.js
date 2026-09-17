@@ -8,7 +8,6 @@ var welcomeScreenClose = document.querySelector("#welcomeclose");
 var notesScreen = document.querySelector("#spaceNotesApp");
 var notesScreenClose = document.querySelector("#notesClose");
 
-// Star Chart DOM elements
 var starChartScreen = document.querySelector("#starchart-window");
 var starChartClose = document.querySelector("#starchartClose");
 
@@ -44,6 +43,14 @@ if (!document.querySelector("#telemetry-clock-style")) {
       border-radius: 50%;
       display: inline-block;
       animation: blink-green 1s steps(1, start) infinite;
+    }
+    .star-node {
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+    .star-node:hover {
+      transform: scale(1.4);
+      filter: drop-shadow(0 0 8px #00e1ff);
     }
   `;
   document.head.appendChild(styleEl);
@@ -221,14 +228,33 @@ if (starChartClose) {
   });
 }
 
+function playTargetLockBeep() {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1);
+
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.15);
+  } catch (err) {}
+}
+
 window.addEventListener("DOMContentLoaded", function() {
-  // Initialize all draggable windows
   initializeWindow("welcome");
   initializeWindow("spaceNotesApp");
   initializeWindow("starchart-window");
 
-  // Data Store for Demo Logs
-  const logData = {
+  const defaultLogData = {
     "LOG_004": 
         "[ TIME: 000:00:00:01 MET ]\n" +
         "[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]\n\n" +
@@ -283,44 +309,142 @@ window.addEventListener("DOMContentLoaded", function() {
         "> LOI BURNS COMPLETE // S-IVB IMPACT TELEMETRY DOCKED"
   };
 
+  let savedLogs = localStorage.getItem("jj_os_space_logs");
+  let logData = savedLogs ? JSON.parse(savedLogs) : defaultLogData;
+
   const textarea = document.querySelector('.log-input');
-  const logItems = document.querySelectorAll('.log-item');
+  const logContainer = document.querySelector('.log-list') || document.querySelector('.log-sidebar') || document.querySelector('.logs-container');
   const newLogBtn = document.querySelector('.l-button');
+  
+  let currentLogKey = Object.keys(logData)[0] || "LOG_004";
 
-  logItems.forEach((item, index) => {
+  function selectLog(logKey, logElement) {
+    currentLogKey = logKey;
+    
+    document.querySelectorAll('.log-item').forEach(el => el.classList.remove('active'));
+    if (logElement) logElement.classList.add('active');
+
+    if (textarea) {
+      textarea.value = logData[logKey] || "";
+    }
+  }
+
+  function attachLogClick(item, key) {
     item.addEventListener('click', () => {
-      logItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
+      selectLog(key, item);
+    });
+  }
 
-      const logKeys = ["LOG_004", "LOG_003", "LOG_002", "LOG_001"];
-      const selectedKey = logKeys[index];
+  const existingLogItems = document.querySelectorAll('.log-item');
+  const logKeys = Object.keys(logData);
 
-      if (textarea && logData[selectedKey]) {
-        textarea.value = logData[selectedKey];
+  existingLogItems.forEach((item, index) => {
+    const key = logKeys[index] || `LOG_00${4 - index}`;
+    item.dataset.key = key;
+    attachLogClick(item, key);
+  });
+
+  if (logContainer) {
+    logKeys.forEach((key) => {
+      if (!Array.from(existingLogItems).some(item => item.dataset.key === key) && key.startsWith("LOG_CUSTOM_")) {
+        const newLogDiv = document.createElement('div');
+        newLogDiv.className = 'log-item';
+        newLogDiv.dataset.key = key;
+
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'log-title';
+        titleSpan.textContent = key.replace("LOG_CUSTOM_", "LOG_");
+
+        const subSpan = document.createElement('span');
+        subSpan.className = 'log-subtext';
+        subSpan.textContent = 'USER LOG';
+
+        newLogDiv.appendChild(titleSpan);
+        newLogDiv.appendChild(subSpan);
+
+        logContainer.insertBefore(newLogDiv, logContainer.firstChild);
+        attachLogClick(newLogDiv, key);
       }
     });
-  });
+  }
+
+  if (textarea) {
+    textarea.value = logData[currentLogKey] || "";
+    textarea.addEventListener("input", function() {
+      if (currentLogKey) {
+        logData[currentLogKey] = textarea.value;
+        localStorage.setItem("jj_os_space_logs", JSON.stringify(logData));
+      }
+    });
+  }
 
   if (newLogBtn) {
     newLogBtn.addEventListener('click', () => {
-      logItems.forEach(i => i.classList.remove('active'));
-      const currentDate = new Date().toISOString().slice(0, 10);
-      const currentTime = new Date().toUTCString().slice(17, 25);
-      textarea.value = "[ TIMESTAMP: " + currentDate + " - " + currentTime + " UTC ]\n[ LOCATION: UNKNOWN ]\n\n// NEW MISSION LOG\n> INPUT_";
-      textarea.focus();
+      const logIndex = String(document.querySelectorAll('.log-item').length + 1).padStart(3, '0');
+      currentLogKey = `LOG_${logIndex}`;
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+
+      const newEntryText = `[ TIME: 000:00:00:00 MET ]\n[ NETWORK: JJ_OS_PRIMARY // DEEP_SPACE_OPS ]\n\n// FLIGHT LOG ${logIndex}: NEW ENTRY\n===========================================================\n\n> INPUT_`;
+
+      logData[currentLogKey] = newEntryText;
+      localStorage.setItem("jj_os_space_logs", JSON.stringify(logData));
+
+      if (logContainer) {
+        const newLogDiv = document.createElement('div');
+        newLogDiv.className = 'log-item active';
+        newLogDiv.dataset.key = currentLogKey;
+        newLogDiv.innerHTML = `
+          <span class="log-title">LOG_${logIndex} //<br>FIELD_NOTES</span>
+          <span class="log-subtext">${dateStr}</span>
+        `;
+
+        logContainer.insertBefore(newLogDiv, logContainer.firstChild);
+
+        attachLogClick(newLogDiv, currentLogKey);
+        selectLog(currentLogKey, newLogDiv);
+      }
+
+      if (textarea) textarea.focus();
+    });
+  }
+
+  const starChartContainer = document.querySelector("#starchart-window");
+  if (starChartContainer) {
+    const starTargets = starChartContainer.querySelectorAll(".star-node, circle, [data-star]");
+
+    starTargets.forEach(star => {
+      star.classList.add("star-node");
+      star.addEventListener("click", (e) => {
+        e.stopPropagation();
+        playTargetLockBeep();
+
+        const starName = star.getAttribute("data-name") || star.id || "UNKNOWN_SECTOR";
+        const ra = (Math.random() * 24).toFixed(2);
+        const dec = ((Math.random() * 180) - 90).toFixed(2);
+
+        const targetInfo = `\n[ TARGET LOCK ACQUIRED ]\n> OBJECT: ${starName}\n> COORDS: RA ${ra}h / DEC ${dec}°\n> STATUS: TRACKING...`;
+
+        if (textarea) {
+          textarea.value += "\n" + targetInfo;
+          if (currentLogKey) {
+            logData[currentLogKey] = textarea.value;
+            localStorage.setItem("jj_os_space_logs", JSON.stringify(logData));
+          }
+        }
+      });
     });
   }
 });
 
-
-// --- CUSTOM ROCKET CURSOR LOGIC ---
 const cursor = document.querySelector('.cursor1');
 
 let lastX = 0;
 let lastY = 0;
 
-// Centralized function to calculate rotation and move the rocket
 function updateCursor(currentX, currentY) {
+  if (!cursor) return;
   const deltaX = currentX - lastX;
   const deltaY = currentY - lastY;
   const distanceMoved = Math.hypot(deltaX, deltaY);
@@ -344,12 +468,10 @@ function updateCursor(currentX, currentY) {
   lastY = currentY;
 }
 
-// 1. Listen for normal mouse movement on the desktop wallpaper
 document.addEventListener('mousemove', (e) => updateCursor(e.clientX, e.clientY));
-document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+document.addEventListener('mousedown', () => cursor && cursor.classList.add('clicking'));
+document.addEventListener('mouseup', () => cursor && cursor.classList.remove('clicking'));
 
-// 2. Listen for "radio messages" from the iframe apps
 window.addEventListener('message', (e) => {
   const iframes = Array.from(document.querySelectorAll('iframe'));
   const sourceIframe = iframes.find(iframe => iframe.contentWindow === e.source);
@@ -359,12 +481,11 @@ window.addEventListener('message', (e) => {
       const rect = sourceIframe.getBoundingClientRect();
       updateCursor(e.data.x + rect.left, e.data.y + rect.top);
     }
-    if (e.data.type === 'cursorDown') cursor.classList.add('clicking');
-    if (e.data.type === 'cursorUp') cursor.classList.remove('clicking');
+    if (e.data.type === 'cursorDown' && cursor) cursor.classList.add('clicking');
+    if (e.data.type === 'cursorUp' && cursor) cursor.classList.remove('clicking');
   }
 });
 
-// 3. Function to generate fading exhaust particles
 function createThrusterParticle(x, y, angleDeg) {
   const particle = document.createElement('div');
   particle.className = 'thruster-particle';
