@@ -503,3 +503,58 @@ function createThrusterParticle(x, y, angleDeg) {
     particle.remove();
   }, 400);
 }
+document.addEventListener("DOMContentLoaded", function() {
+  const loginscreen = document.getElementById("login-screen");
+  const usernamei = document.getElementById("username");
+  const passwordi = document.getElementById("password");
+  const loginbtn = document.getElementById("login-btn");
+  const error = document.getElementById("login-error");
+
+  let previous_users = localStorage.getItem("jj_os_users");
+  let userdatabase = {};
+  
+  if (previous_users) {
+    try {
+      userdatabase = JSON.parse(previous_users);
+    } catch (e) {
+      userdatabase = {};
+    }
+  }
+
+  if (loginbtn) {
+    loginbtn.addEventListener("click", handleAuth);
+  }
+
+  function unlockSystem() {
+  if (window.parent && window.parent.document.getElementById("login-screen")) {
+    window.parent.document.getElementById("login-screen").style.display = "none";
+  } else if (loginscreen) {
+    loginscreen.style.display = "none";
+  }
+}
+
+  function handleAuth() {
+    if (!usernamei || !passwordi) return;
+
+    let username = usernamei.value.trim().toUpperCase();
+    let password = passwordi.value.trim();
+
+    if (username === "" || password === "") {
+      if (error) error.textContent = "MISSING CREDENTIALS";
+      return;
+    }
+
+    if (userdatabase[username]) {
+      if (userdatabase[username] === password) {
+        unlockSystem();
+      } else {
+        if (error) error.textContent = "INVALID PASSCODE";
+        passwordi.value = "";
+      }
+    } else {
+      userdatabase[username] = password;
+      localStorage.setItem("jj_os_users", JSON.stringify(userdatabase));
+      unlockSystem();
+    }
+  }
+});

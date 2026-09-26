@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login-screen</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Buttons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="login-screen"> 
+      <div id="inner-login">
+          <input type="text" id="username" placeholder="Austronaut ID">
+          <input type="password" id="password" placeholder="password">
+          <button id ="login-btn">LAUNCH</button>
+          <p id ="login-error"></p>
+      </div>
+  </div>
+  <script>
+        document.addEventListener('mousemove', (e) => {
+            window.parent.postMessage({ type: 'cursorMove', x: e.clientX, y: e.clientY }, '*');
+        });
+        
+        document.addEventListener('mousedown', () => {
+            window.parent.postMessage({ type: 'cursorDown' }, '*');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            window.parent.postMessage({ type: 'cursorUp' }, '*');
+        });
+    </script>
+</body>
+</html>
