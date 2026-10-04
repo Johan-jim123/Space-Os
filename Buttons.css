@@ -43,3 +43,23 @@
 .close-button:hover{
     background-color:rgb(250, 66, 66);
 }
+.nc1 {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   width : 100px;
+   height: 25px;
+   background: rgba(8, 12, 20, 0.9);
+   border: 1px solid var(--theme-color, #00e1ff);
+   border-right: 3px solid var(--theme-color, #00e1ff);
+   border-radius: 2px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+   color: var(--theme-color, #00e1ff);
+   justify-content:center;
+
+}
+.nc1:hover {
+  background-color: rgb(6, 24, 54);
+  border-color: #00e1ff;
+  box-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+}

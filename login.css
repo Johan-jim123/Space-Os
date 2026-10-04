@@ -1,0 +1,78 @@
+#login-screen{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    flex-direction: column;
+    background-color: rgba(0, 225, 255, 0.1);
+    font-family: 'Share Tech Mono', monospace;
+    color: black;
+}
+#inner-login{
+    width: 250px;
+    background-color: rgba(8, 161, 181, 0.313);
+    justify-content: center;
+    text-align: center;
+    padding: 39px;
+    padding-top: 56px;
+    border: 3px solid rgba(0, 64, 72, 0.313) ;
+    box-shadow: 
+     0 0 4px #fff,
+        0 0 10px #fff,
+        0 0 20px rgba(0, 64, 72, 0.313),
+        0 0 40px rgba(0, 64, 72, 0.313),
+        0 0 80px rgba(0, 64, 72, 0.313),
+        0 0 100px rgba(0, 64, 72, 0.313),
+        0 0 150px #00FFFF;
+}
+#username{
+    display: block;
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 8px;
+    background-color: rgba(11, 188, 211, 0.184);
+    font-family: 'Courier New', Courier, monospace;
+    color: #b59a02;
+}
+#username:focus{
+    background-color: rgba(35, 113, 123, 0.384);
+    border-color:rgb(35, 113, 123) ;
+}
+#password{
+    display: block;
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 8px;
+    background-color: rgba(11, 188, 211, 0.184);
+    font-family: 'Courier New', Courier, monospace;
+    color: #b59a02;
+}
+#password:focus{
+    background-color: rgba(35, 113, 123, 0.384);
+    border-color:rgb(35, 113, 123) ;
+}
+#login-btn{
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    width: 140px;
+    height: 30px;
+    justify-content: center;
+    align-self: center;
+    background-color: aquamarine;
+    sfsdfdsfdsfdsfsfdasdfsfefsfefefcursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-weight: bolder;
+    font-size: 16px;
+}
+#login-error{
+    color: red;
+    font-size: 10px;
+    margin-top: 10px;
+    min-height: 15px;
+}
