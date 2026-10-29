@@ -1,0 +1,85 @@
+@import url('https://fonts.cdnfonts.com/css/nasalization');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI',system-ui, -apple-system,  sans-serif;
+
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: azure;
+    
+}
+.calculator{
+    display: flex;
+    background-color: beige;
+    padding: 20;
+    width: 500px;
+    height: 550px;
+    justify-content: center;
+    border-radius: 30px;
+    border-color: black;
+}
+.calc-container{
+    display: flex;
+    padding-top: 188px;
+    flex-direction: column;
+
+    background-color: navajowhite;
+    width: 467px;
+    height: 500px;
+    align-self: center;
+    padding-top: 20px;
+    border-radius: 30px;
+}
+.output{
+
+    align-self: center;
+    width: 432px;
+    height: 200px;
+    border-radius: 30px;
+    background-color: white;
+    
+}
+.input{
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    gap: 4px;
+
+}
+.value{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    font-family: 'Nasalization Rg', sans-serif;
+    font-size: 45px;
+}
+.row{
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    width: 100%;
+    padding-top: 12px;
+}
+button{
+    border-radius: 89px;
+    width: 57px;
+    height: 39px;
+    align-self: center;
+    justify-content: center;
+    background-color: rgba(165, 42, 42, 0.474);
+}
+button#calculate{
+    background-color: brown;
+    width: 129px;
+}
+button#delete{
+    background-color: brown;
+}
+button.active{
+    background-color:aquamarine !important ;
+}

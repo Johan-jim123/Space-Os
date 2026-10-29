@@ -10,20 +10,95 @@ function updateOutputResult(result) {
     output_result_element.innerHTML = result;
 };
 let calculator_buttons = [
-
 {
-    name :"delete",
-    symbol:"⌫",
+    name: "Rad",
+    symbol: "Rad",
     formula: false,
-    type : "key"
+    type: "key"
 },
-
 {
-    name: "multiplication",
-    symbol: "x",
-    formula: "*",
-    type: "operator"
-
+    name: "Deg",
+    symbol: "Deg",
+    formula: false,
+    type: "key"
+},
+{
+    name: "square-root",
+    symbol: "√",
+    formula: "Math.sqrt",
+    type: "math_function"
+},
+{
+    name: "square",
+    symbol: "x²",
+    formula: "^2",
+    type: "math_function"
+},
+{
+    name: "open-parenthesis",
+    symbol: "(",
+    formula: "(",
+    type: "math_function"
+},
+{
+    name: "close-parenthesis",
+    symbol: ")",
+    formula: ")",
+    type: "math_function"
+},
+{
+    name: "clear",
+    symbol: "C",
+    formula: false,
+    type: "key"
+},
+{
+    name: "delete",
+    symbol: "⌫",
+    formula: false,
+    type: "key"
+},
+{
+    name: "pi",
+    symbol: "π",
+    formula: "Math.PI",
+    type: "number"
+},
+{
+    name: "cos",
+    symbol: "cos",
+    formula: "trigo(Math.cos",
+    type: "trigo_function"
+},
+{
+    name: "sin",
+    symbol: "sin",
+    formula: "trigo(Math.sin,",
+    type: "trigo_function"
+},
+{
+    name: "tan",
+    symbol: "tan",
+    formula: "trigo(Math.tan",
+    type: "trigo_function"
+},
+{
+    name: "7",
+    symbol: 7,
+    formula: 7,
+    type: "number"
+},
+{
+    name: "8",
+    symbol: 8,
+    formula: 8,
+    type: "number"
+},
+{
+    name: "9",
+    symbol: 9,
+    formula: 9,
+    type: "number"
 },
 {
     name: "division",
@@ -32,34 +107,28 @@ let calculator_buttons = [
     type: "operator"
 },
 {
-    name: "addition",
-    symbol: "+",
-    formula: "+",
-    type: "operator"
-},
-{
-    name: "subtraction",
-    symbol: "-",
-    formula: "-",
-    type: "operator"            
-},
-{
-    name: "1",
-    symbol: 1,
-    formula: 1,
+    name: "e",
+    symbol: "e",
+    formula: "Math.E",
     type: "number"
 },
 {
-    name: "2",
-    symbol: 2,
-    formula: 2,
-    type: "number"
+    name: "acos",
+    symbol: "acos",
+    formula: "trigo(Math.acos",
+    type: "trigo_function"
 },
 {
-    name: "3",
-    symbol: 3,
-    formula: 3,
-    type: "number" 
+    name: "asin",
+    symbol: "asin",
+    formula: "trigo(Math.asin",
+    type: "trigo_function"
+},
+{
+    name: "atan",
+    symbol: "atan",
+    formula: "trigo(Math.atan",
+    type: "trigo_function"
 },
 {
     name: "4",
@@ -80,162 +149,97 @@ let calculator_buttons = [
     type: "number"
 },
 {
-    name: "7",
-    symbol: 7,
-    formula: 7,
-    type: "number"
-} ,                 
-{
-    name: "8",
-    symbol: 8,
-    formula: 8,
-    type: "number"      
+    name: "multiplication",
+    symbol: "x",
+    formula: "*",
+    type: "operator"
 },
 {
-    name: "9", 
-    symbol: 9,
-    formula: 9,
+    name: "factorial",
+    symbol: "x!",
+    formula: "FACTORIAL",
+    type: "math_function"
+},
+{
+    name: "exp",
+    symbol: "exp",
+    formula: "Math.exp",
+    type: "math_function"
+},
+{
+    name: "Ln",
+    symbol: "Ln",
+    formula: "Math.log",
+    type: "math_function"
+},
+{
+    name: "log",
+    symbol: "log",
+    formula: "Math.log10",
+    type: "math_function"
+},
+{
+    name: "1",
+    symbol: 1,
+    formula: 1,
+    type: "number"
+},
+{
+    name: "2",
+    symbol: 2,
+    formula: 2,
+    type: "number"
+},
+{
+    name: "3",
+    symbol: 3,
+    formula: 3,
+    type: "number"
+},
+{
+    name: "subtraction",
+    symbol: "-",
+    formula: "-",
+    type: "operator"
+},
+{
+    name: "power",
+    symbol: "x^y",
+    formula: "POWER(",
+    type: "math_function"
+},
+{
+    name: "percent",
+    symbol: "%",
+    formula: "/100",
+    type: "math_function"
+},
+{
+    name: "decimal",
+    symbol: ".",
+    formula: ".",
     type: "number"
 },
 {
     name: "0",
     symbol: 0,
     formula: 0,
-    type: "number"      
-},
-{
-    name:"e",
-    symbol:"e",
-    formula:"Math.E",
-    type:"number"
-},
-{
-    name:"π",
-    symbol:"π",
-    formula:"Math.PI",
-    type:"number"
-},
-{
-    name:"decimal",
-    symbol:".",
-    formula:".",
-    type:"number"
-},
-{
-    name: "ANS",
-    symbol: "ANS",
-    formula: "ans",
     type: "number"
 },
 {
     name: "calculate",
     symbol: "=",
-    formula:"=",
+    formula: "=",
     type: "calculate"
 },
 {
-    name: "cos",
-    symbol: "cos",
-    formula: "trigo(Math.cos",
-    type: "trigo_function"
-},
-{
-    name:"sin",
-    symbol:"sin",
-    formula:"trigo(Math.sin,",
-    type:"trigo_function"
-},
-{
-    name:"tan",
-    symbol:"tan",
-    formula:"trigo(Math.tan",
-    type:"trigo_function"
-},
-{
-    name:"acos",
-    symbol:"acos",
-    formula:"trigo(Math.acos",
-    type:"trigo_function"
-},
-{
-    name:"asin",
-    symbol:"asin",
-    formula:"trigo(Math.asin",
-    type:"trigo_function"
-},
-{
-    name:"atan",
-    symbol:"atan",
-    formula:"trigo(Math.atan",
-    type:"trigo_function"
-},
-{
-    name:"power",
-    symbol:"x^y",
-    formula:"POWER(",
-    type:"math_function"
-},
-{
-    name:"Ln",
-    symbol:"Ln",
-    formula:"Math.log",
-    type:"math_function"
-},
-{
-    name:"factorial",
-    symbol:"!",
-    formula:"FACTORIAL",
-    type:"math_function"
-},
-{
-    name:"log",
-    symbol:"log",
-    formula:"Math.log10",
-    type:"math_function"
-},
-{
-    name:"Rad",
-    symbol:"Rad",
-    formula:false,
-    type:"key"
-},
-{
-    name:"Deg",
-    symbol:"Deg",
-    formula:false,
-    type:"key"
-},
-{
-    name: "square",
-    symbol: "x²",
-    formula: "^2",
-    type: "math_function"
-}, 
-{
-    name: "square-root",
-    symbol: "√",
-    formula: "Math.sqrt",
-    type: "math_function"
-},
-{
-    name: "open-parenthesis",
-    symbol: "(",
-    formula: "(",
-    type: "math_function"// why r there sooo manyy
-},
-{
-    name: "close-parenthesis",
-    symbol: ")",
-    formula: ")",
-    type: "math_function"
-},
-{
-    name :"clear",
-    symbol:"C",
-    formula: false,
-    type : "key"
-},
+    name: "addition",
+    symbol: "+",
+    formula: "+",
+    type: "operator"
+}
 ];
+
 const btns_per_row = 8;
 let added_btns = 0;
 let row;
@@ -263,15 +267,23 @@ function  calculator(button){
     
     console.log("Button clicked object:", button);
     if (button.type === "key") {
+        const Radbtn = document.getElementById("Rad");
+        const Degbtn = document.getElementById("Deg");
         if (button.name ==="Rad"){
                 RADIAN = true;
+                Radbtn.classList.add("active");
+                Degbtn.classList.remove("active");
                 console.log("Mode changed to: RADIAN = true");
             }
         else if (button.name ==="Deg"){
-          
                 RADIAN = false;
+                Degbtn.classList.add("active");
+                Radbtn.classList.remove("active");
                 console.log("Mode changed to: RADIAN = false");
-        if (button.name === "delete") {
+        
+        
+    }
+    if (button.name === "delete") {
             data.operation.pop();
             data.formula.pop();
         }
@@ -279,8 +291,7 @@ function  calculator(button){
             data.operation =[];
             data.formula =[];
         }
-        
-    }}
+}
     if (button.type === "number") {
         data.operation.push(button.symbol);
         data.formula.push(button.formula);
