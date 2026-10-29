@@ -418,6 +418,9 @@ function handleIconTap(e, element) {
     } else if (element.id === "starchartOpen") {
       openWindow(starChartScreen);
     }
+    if (element.id === 'calculatorOpen') {
+    const calcApp = document.getElementById('calculatorApp');
+    calcApp.style.display = 'block';}
   }
 }
 
@@ -620,6 +623,7 @@ window.addEventListener("DOMContentLoaded", function() {
   initializeWindow("welcome");
   initializeWindow("spaceNotesApp");
   initializeWindow("starchart-window");
+  initializeWindow("calculatorApp")
 
   const musicBtn = document.getElementById("music");
   if (musicBtn) {
@@ -736,6 +740,8 @@ window.addEventListener("DOMContentLoaded", function() {
       });
     });
   }
-
+  document.getElementById('calculatorClose').addEventListener('click', () => {
+    document.getElementById('calculatorApp').style.display = 'none';
+});
   loadUserData();
 });
